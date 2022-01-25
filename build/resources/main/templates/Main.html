@@ -5,7 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-    <div><a th:href = "@{/Member/Login}"><button>로그인</button></a></div>
-    <div><a th:href = "@{/Member/SignUp}"><button>회원가입</button></a></div>
+
+<div class = "container-fluid">
+
+    <div id = "head_1"th:replace = "Header.html :: header" style = "background-color: rgba(255, 255, 255, 0)"></div>
+    <div style="height:73.52vh;">
+        <img th:src = "@{/IMG/logofoot.svg}" class = "col-md-10 offset-md-1" style="height: 59.0278vh;">
+    </div>
+    <div id = "foot_1" th:replace = "Footer.html :: footer"></div>
+</div>
 </body>
 </html>

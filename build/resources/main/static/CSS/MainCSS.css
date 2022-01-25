@@ -1,4 +1,27 @@
-/*
-*{
+
+.container-fluid{
     background: coral;
+}
+
+/**{
+    border: solid 1px black;
 }*/
+
+#head_1{
+    height: 5.9028vh;
+}
+#foot_1{
+    height: 100px;
+}
+#headtag{
+    font-size: 1.15rem;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#headtag:hover{
+    border-bottom: 2px white solid;
+    transition: all ease 0.5s 0s;
+
+}

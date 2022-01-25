@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MemberController {
     // 시작 - 메인화면
     @GetMapping("/")
-    public String goToMain() {return "Main";}
+    public String goToMain() {return "main";}
     // 로그인화면으로
     @GetMapping("/Member/Login")
     public String goToLogin() {return "Member/Login";}

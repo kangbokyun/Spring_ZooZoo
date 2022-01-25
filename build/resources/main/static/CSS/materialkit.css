@@ -2702,6 +2702,7 @@ progress {
   background-color: transparent;
   background-clip: padding-box;
   border: 1px solid #d2d6da;
+  /*폼 컨트롤러 border 지움*/
   appearance: none;
   border-radius: 0.375rem;
   transition: 0.2s ease;
@@ -21723,7 +21724,7 @@ body.dark-version {
 
 .input-group.input-group-dynamic.is-focused.is-valid label,
 .input-group.input-group-static.is-focused.is-valid label {
-  color: #4CAF50;
+  color: #ff7f50;
 }
 
 .input-group.input-group-dynamic.is-focused.is-valid .form-control,
