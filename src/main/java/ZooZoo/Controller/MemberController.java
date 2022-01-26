@@ -51,13 +51,13 @@ public class MemberController {
     @ResponseBody
     @PostMapping("/Member/FindIdController")
     public String FindIdController(@RequestParam("memail") String memail,
-                                   @RequestParam("mpw") String mpw,
+                                   @RequestParam("mname") String mname,
                                    Model model){
         //이메일, 패스워드 둘 중 하나라도 공백이거나 null일 경우
-        if(memail.equals("") || memail == null || mpw.equals("") || mpw == null){
+        if(memail.equals("") || memail == null || mname.equals("") || mname == null){
             return "1";
         }else{
-            String result = memberService.FindId(memail, mpw);
+            String result = memberService.FindId(memail, mname);
             if(result != null && !result.equals("")){
                 return result;
             //동일한 회원 정보가 없으면

@@ -27,10 +27,10 @@ public class MemberService {
         return true;
     }
 
-    public String FindId(String memail, String mpw) {
+    public String FindId(String memail, String mname) {
         List<MemberEntity> memberEntities = memberRepository.findAll();
         for(MemberEntity temp : memberEntities){
-            if(temp.getMemail().equals(memail) && temp.getMpw().equals(mpw)){
+            if(temp.getMemail().equals(memail) && temp.getMname().equals(mname)){
                 return temp.getMid();
             }
         }

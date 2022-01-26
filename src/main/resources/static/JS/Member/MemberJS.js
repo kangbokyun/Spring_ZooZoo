@@ -1,11 +1,11 @@
 //아이디 찾기
 function findid(){
+    var mname = $("#mname").val();
     var memail = $("#memail").val();
-    var mpw = $("#mpw").val();
     $.ajax({
         url:"/Member/FindIdController",
         method: "post",
-        data:{"memail":memail, "mpw":mpw},
+        data:{"mname":mname, "memail":memail},
         success: function(result) {
             //1이면 공백값이라 공백막기
             if(result == 1){
