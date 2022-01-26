@@ -20,9 +20,12 @@ public class MemberController {
     // 로그인화면으로
     @GetMapping("/Member/Login")
     public String goToLogin() {return "Member/Login";}
-    // 회원가입으로
+    // 일반 회원가입으로
     @GetMapping("/Member/SignUp")
     public String goToSignUp() {return "Member/SignUp";}
+    // 기업 회원가입으로
+    @GetMapping("/Member/CompanySignUp")
+    public String goToCompanySignUp() {return "Member/CompanySignUp";}
     // 아이디 찾기로
     @GetMapping("/Member/FindId")
     public String goToFindId() {return "Member/FindId";}
