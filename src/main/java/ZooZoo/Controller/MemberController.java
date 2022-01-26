@@ -5,8 +5,10 @@ import ZooZoo.Service.MemberService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -42,6 +44,20 @@ public class MemberController {
             return "1";
         } else {
             return "2";
+        }
+    }
+
+    //아이디 찾기
+    @ResponseBody
+    @PostMapping("/Member/FindIdController")
+    public String FindIdController(@RequestParam("memail") String memail,
+                                   @RequestParam("mpw") String mpw,
+                                   Model model){
+        String result = memberService.FindId(memail, mpw);
+        if(result != null && !result.equals("")){
+            return result;
+        }else{
+            return "동일한 회원 정보가 없습니다.";
         }
     }
 }

@@ -6,6 +6,8 @@ import ZooZoo.Domain.Entity.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MemberService {
     @Autowired
@@ -23,5 +25,15 @@ public class MemberService {
                 .build();
         memberRepository.save(memberEntity);
         return true;
+    }
+
+    public String FindId(String memail, String mpw) {
+        List<MemberEntity> memberEntities = memberRepository.findAll();
+        for(MemberEntity temp : memberEntities){
+            if(temp.getMemail().equals(memail) && temp.getMpw().equals(mpw)){
+                return temp.getMid();
+            }
+        }
+        return null;
     }
 }
