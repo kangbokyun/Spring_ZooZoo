@@ -15,8 +15,8 @@ public class MemberController {
     MemberService memberService;
 
     // 시작 - 메인화면
-    @GetMapping("/")
-    public String goToMain() {return "Main";}
+    /*@GetMapping("/")
+    public String goToMain() {return "Main";}*/
     // 로그인화면으로
     @GetMapping("/Member/Login")
     public String goToLogin() {return "Member/Login";}
