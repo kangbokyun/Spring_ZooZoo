@@ -23,6 +23,12 @@ public class MemberController {
     // 회원가입으로
     @GetMapping("/Member/SignUp")
     public String goToSignUp() {return "Member/SignUp";}
+    // 아이디 찾기로
+    @GetMapping("/Member/FindId")
+    public String goToFindId() {return "Member/FindId";}
+    // 비밀번호 찾기로
+    @GetMapping("/Member/FindPw")
+    public String goToFindPw() {return "Member/FindPw";}
 
     // 회원가입
     @PostMapping("/Member/SignUpController") @ResponseBody
