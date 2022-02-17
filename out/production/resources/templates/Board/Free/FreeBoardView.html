@@ -109,12 +109,17 @@
                 <div class="row">
                   <div id="fContentDiv" th:utext="${boardEntity.bcontents}" ></div>
                   <!--추천 시작-->
-                  <div style="margin-top:20px; text-align:center;" id="LikeBox">
-                    <div >
-                      <i th:if="${memberDTO == null} or ${memberDTO.mno == boardEntity.memberEntity.mno}" class="material-icons" style="font-size:30px;">favorite
+                  <div style="text-align:center;" id="LikeBox">
+                    <div th:if="${memberDTO == null} or ${memberDTO.mno == boardEntity.memberEntity.mno}">
+                      <i  class="material-icons" style="font-size:30px;">favorite
                       </i>
-                      <i th:if="${memberDTO != null} and ${memberDTO.mno != boardEntity.memberEntity.mno}" id="likeHeart" class="material-icons" style="cursor:pointer; font-size:30px;"
-                         th:onclick="likeClick([[${boardEntity.bno}]], [[${boardEntity.categoryEntity.cano}]], [[${boardEntity.memberEntity.mno}]])" >favorite
+                    </div>
+                    <div th:if="${memberDTO != null} and ${memberDTO.mno != boardEntity.memberEntity.mno}" >
+                      <i th:if="${rs == 1}" id="likeHeart" class="material-icons" style="cursor:pointer; font-size:30px; color:red"
+                          th:onclick="likeClick([[${boardEntity.bno}]], [[${boardEntity.categoryEntity.cano}]], [[${memberDTO.getMno()}]])" >favorite
+                      </i>
+                      <i th:unless="${rs == 1}" id="likeHeart2" class="material-icons" style="cursor:pointer; font-size:30px;"
+                         th:onclick="likeClick([[${boardEntity.bno}]], [[${boardEntity.categoryEntity.cano}]], [[${memberDTO.getMno()}]])" >favorite
                       </i>
                     </div>
                     <p class="mb-0" id="likeCount">123</p>
@@ -130,7 +135,6 @@
                       </ul>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>

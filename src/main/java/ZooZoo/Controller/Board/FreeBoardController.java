@@ -161,6 +161,7 @@ public class FreeBoardController {
         if(memberDTO != null) {
             int rs = boardLikeService.likeCheck(bno, boardEntity2.get().getCategoryEntity().getCano(), memberDTO.getMno());
             System.out.println("좋아요 되었습니까?? : " + rs);
+            model.addAttribute("rs",rs);
         }
 
 
