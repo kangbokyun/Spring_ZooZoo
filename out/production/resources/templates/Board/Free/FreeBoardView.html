@@ -8,6 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="Template Mo">
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
   <title>Education - List of Meetings</title>
 
@@ -18,7 +19,8 @@
   <link th:href="@{/assets/css/templatemo-edu-meeting.css}" rel="stylesheet" />
   <link th:href="@{/assets/css/owl.css}" rel="stylesheet" />
   <link th:href="@{/assets/css/lightbox.css}" rel="stylesheet" />
-  <link id="pagestyle" th:href="@{/CSS/materialkit.css?v=3.0.0}" rel="stylesheet" />
+  <link th:href="@{/CSS/FreeBoard/FreeBoardReplyCss.css}" rel="stylesheet" />
+  <link th:href="@{/CSS/FreeBoard/FreeBoardCss.css}" rel="stylesheet"/>
   <!--
 
   TemplateMo 569 Edu Meeting
@@ -26,6 +28,7 @@
   https://templatemo.com/tm-569-edu-meeting
 
   -->
+  <link th:href="@{/CSS/CommonScrollBar.css}" rel="stylesheet" />
 </head>
 
 <body style="  background-color: #ff7f50;">
@@ -37,12 +40,12 @@
     <div class="row mt-0">
       <div class="d-flex justify-content-end mt-0">
         <div class="col-lg-1 mt-0 mb-4">
-          <a th:if="${memberDTO != null} and ${memberDTO.mid == boardEntity.memberEntity.mid}" th:href="@{'/Board/Free/goToFreeBoardUpdate/'}+${boardEntity.bno}">
-            <button type="button" class="btn btn bg-gradient-info w-auto me-2" >수정하기</button>
+          <a th:if="${memberDTO != null} and ${memberDTO.mno == boardEntity.memberEntity.mno}" th:href="@{'/Board/Free/goToFreeBoardUpdate/'}+${boardEntity.bno}">
+            <button type="button" class="btn btn-dark w-auto me-2" >수정하기</button>
           </a>
         </div>
-        <div th:if="${memberDTO != null} and ${memberDTO.mid == boardEntity.memberEntity.mid}" class="col-lg-1 mt-0 mb-4">
-          <button  type="button" class="btn btn bg-gradient-danger w-auto me-2" th:onclick="freeboardDelete([[${boardEntity.bno}]])">삭제하기</button>
+        <div th:if="${memberDTO != null} and ${memberDTO.mno == boardEntity.memberEntity.mno}" class="col-lg-1 mt-0 mb-4">
+          <button  type="button" class="btn btn-danger w-auto me-2" th:onclick="freeboardDelete([[${boardEntity.bno}]])">삭제하기</button>
         </div>
       </div>
     </div>
@@ -62,7 +65,7 @@
                     <div class="carousel-item active" >
 
                       <img th:if="${boardEntity.boardImgEntities.size() != 0}" th:src="@{'/IMG/Board/FreeBoardIMG/'+${boardEntity.boardImgEntities.get(0).bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
-                      <img th:if="${boardEntity.boardImgEntities.size() == 0}" th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
+                      <img th:if="${boardEntity.boardImgEntities.size() == 0}" th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#333333; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                     </div>
                     <div class="carousel-item" th:each="boardImg : ${boardEntity.boardImgEntities}">
                       <img th:if="${#lists.size(boardImg)}!=0" th:src="@{'/IMG/Board/FreeBoardIMG/'+${boardImg.bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
@@ -79,11 +82,13 @@
                   </button>
                 </div>
               </div>
-              <div class="down-content">
+              <div class="down-content" style="word-break:break-all;">
                 <div class="row d-flex justify-content-between">
                   <div class="col-lg-7">
-                    <h4 th:text="${boardEntity.btitle}" ></h4>
+                    <h5 th:text="${boardEntity.btitle}" style="font-weight:bold;"></h5>
                   </div>
+                </div>
+                <div class="row mb-0">
                   <div class="col-lg-2">
                     <div class="hours">
                       <p>작성자 <span th:text="${boardEntity.memberEntity.mid}" style="font-weight:bold; color:gray;"></span></p>
@@ -103,6 +108,18 @@
 
                 <div class="row">
                   <div id="fContentDiv" th:utext="${boardEntity.bcontents}" ></div>
+                  <!--추천 시작-->
+                  <div style="margin-top:20px; text-align:center;" id="LikeBox">
+                    <div >
+                      <i th:if="${memberDTO == null} or ${memberDTO.mno == boardEntity.memberEntity.mno}" class="material-icons" style="font-size:30px;">favorite
+                      </i>
+                      <i th:if="${memberDTO != null} and ${memberDTO.mno != boardEntity.memberEntity.mno}" id="likeHeart" class="material-icons" style="cursor:pointer; font-size:30px;"
+                         th:onclick="likeClick([[${boardEntity.bno}]], [[${boardEntity.categoryEntity.cano}]], [[${boardEntity.memberEntity.mno}]])" >favorite
+                      </i>
+                    </div>
+                    <p class="mb-0" id="likeCount">123</p>
+                  </div>
+                  <!--추천 끝-->
                   <div class="col-lg-12">
                     <div class="share" >
                       <h5>첨부파일</h5>
@@ -113,62 +130,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-lg-12 share">
-                    <h5>댓글</h5>
-                    <div class="row">
-                      <div class="col-md-10">
-                        <input class="form-control" type="text" id="frcontents" name="rcontents">
-                        <input type="hidden" id="cano" name="cano" value="4">
-                      </div>
-                      <div class="col-md-2">
-                        <button class="form-control"
-                          th:onclick="freeReplyWrite([[${boardEntity.bno}]])">댓글등록
-                        </button>
-                      </div>
-                    </div>
-                    <table class="table" id="freeReplytable">
-                      <tr>
-                        <th width="15%" style="text-align: center;">작성자</th>
-                        <th width="70%">내용</th>
-                        <th width="15%" style="text-align: center;">비고</th>
-                      </tr>
-                      <tr th:each="replyEntities:${replyEntities}">
-                        <td  th:text="${replyEntities.memberEntity2.mid}"
-                            style="text-align: center;">
-                        </td>
 
-                        <td th:id="tdbcontents+${replyEntities.getRno()}" th:text="${replyEntities.rcontents}"></td>
-                        <td style="text-align: center;">
-                          <div class="d-flex justify-content-center">
-                            <div style="margin-right:8px;">
-                              <button
-                                      th:id="btnrupdate+${replyEntities.getRno()}"
-                                      type="button"
-                                      class="btn btn-outline-secondary"
-                                      th:onclick="rupdate([[${replyEntities.getRno()}]])">수정
-                              </button>
-                            </div>
-                            <div style="margin-right:10px;">
-                              <button
-                                      th:id="btnrchange+${replyEntities.getRno()}"
-                                      type="button"
-                                      class="btn btn-outline-secondary" style="display:none;">
-                                확인
-                              </button>
-                            </div>
-                            <div>
-                              <button
-
-                              type="button" class="btn btn-outline-secondary"
-                              th:onclick="freeReplyDelete([[${replyEntities.rno}]])">
-                                삭제
-                              </button>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
                 </div>
               </div>
             </div>
@@ -182,12 +144,97 @@
     </div>
   </div>
   </div>
-  <div th:replace="Footer.html :: footer"></div>
 </section>
+<!--댓글 section-->
+<section class="meetings-page mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="meeting-single-item">
+                  <div class="down-content" style="border-top-left-radius:20px; border-top-right-radius:20px; ">
+                    <div class="row d-flex justify-content-between" >
+                      <!--댓글 시작-->
+                      <div class="col-lg-12 mt-4">
+                        <h5>댓글</h5>
+                        <div class="row" th:if="${memberDTO != null} ">
+                          <div class="col-md-10">
+                            <input class="form-control" type="text" id="frcontents" name="rcontents">
+                            <input type="hidden" id="cano" name="cano" value="4">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="form-control" th:onclick="freeReplyWrite([[${boardEntity.bno}]])">댓글등록
+                            </button>
+                          </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <!--댓글 테이블 시작-->
+                        <div class="col-lg-12" id="freeReplytable">
+                          <h3 th:if="${replyEntities.size() == 0}" class="text-center">첫 댓글을 달아주세요!</h3>
+                          <div  class="py-2 mb-4"
+                               style="word-break:break-all;
+                               border-bottom:1px solid #cccccc;"
+                               th:each="replyEntities:${replyEntities}">
 
+                            <div class="row d-flex justify-content-between">
+                              <div class="col-md-5" >
+                                <span  th:text="${replyEntities.memberEntity2.mid}"
+                                     style="font-weight:bold; font-size:1.000em;">
+                                </span>
+                              </div>
+                              <div class="col-md-1">
+                                <div class="d-flex justify-content-center" th:if="${memberDTO != null} and ${memberDTO.mid == replyEntities.memberEntity2.mid}">
+                                  <div style="margin-right:8px;">
+                                    <a th:id="btnrupdate+${replyEntities.getRno()}"
+                                       th:onclick="rupdate([[${replyEntities.getRno()}]])" class="ReplyBtns">
+                                      <i class="material-icons me-2" aria-hidden="true" style="cursor:pointer;">edit</i>
+                                    </a>
+                                  </div>
+                                  <div style="margin-right:10px;">
+                                    <a th:id="btnrchange+${replyEntities.getRno()}" style="display:none;" class="ReplyBtns">
+                                      <i class="material-icons me-2" aria-hidden="true" style="cursor:pointer;">check_circle</i>
+                                    </a>
+                                  </div>
+                                  <div>
+                                    <a th:onclick="freeReplyDelete([[${replyEntities.rno}]])" class="ReplyBtns">
+                                      <i class="material-icons me-2" aria-hidden="true" style="cursor:pointer;">delete</i>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <span  th:text="${#temporals.format( replyEntities.createdDate , 'yyyy-MM-dd HH:mm')}" style="color:gray; font-size:0.750em;"></span>
+                            </div>
+                            <div class="my-2">
+                              <span th:id="tdbcontents+${replyEntities.getRno()}" th:text="${replyEntities.rcontents}" ></span>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <!--댓글 끝-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--댓글 section끝-->
+
+<div th:replace="Footer.html :: footer"></div>
 <!-- Scripts -->
 <!-- Bootstrap core JavaScript -->
-<script th:src="@{/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
+<<script th:src="@{/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
 <script th:src="@{/assets/js/isotope.min.js}" type="text/javascript"></script>
 <script th:src="@{/assets/js/owl-carousel.js}" type="text/javascript"></script>
@@ -199,52 +246,7 @@
 <script th:src="@{/assets/js/custom.js}" type="text/javascript"></script>
 <script th:src="@{/JS/Board/FreeBoard/FreeBoard.js}"></script>
 <script th:src="@{/JS/Board/FreeBoard/FreeBoardReply.js}"></script>
-<script>
-        //according to loftblog tut
-        $('.nav li:first').addClass('active');
-
-        var showSection = function showSection(section, isAnimate) {
-          var
-          direction = section.replace(/#/, ''),
-          reqSection = $('.section').filter('[data-section="' + direction + '"]'),
-          reqSectionPos = reqSection.offset().top - 0;
-
-          if (isAnimate) {
-            $('body, html').animate({
-              scrollTop: reqSectionPos },
-            800);
-          } else {
-            $('body, html').scrollTop(reqSectionPos);
-          }
-
-        };
-
-        var checkSection = function checkSection() {
-          $('.section').each(function () {
-            var
-            $this = $(this),
-            topEdge = $this.offset().top - 80,
-            bottomEdge = topEdge + $this.height(),
-            wScroll = $(window).scrollTop();
-            if (topEdge < wScroll && bottomEdge > wScroll) {
-              var
-              currentId = $this.data('section'),
-              reqLink = $('a').filter('[href*=\\#' + currentId + ']');
-              reqLink.closest('li').addClass('active').
-              siblings().removeClass('active');
-            }
-          });
-        };
-
-        $('.main-menu, .responsive-menu, .scroll-to-section').on('click', 'a', function (e) {
-          e.preventDefault();
-          showSection($(this).attr('href'), true);
-        });
-
-        $(window).scroll(function () {
-          checkSection();
-        });
-    </script>
+<script th:src="@{/JS/Board/FreeBoard/FreeBoardLike.js}"></script>
 </body>
 
 

@@ -21,6 +21,9 @@
     <link th:href="@{/assets/css/owl.css}" rel="stylesheet" />
     <link th:href="@{/assets/css/lightbox.css}" rel="stylesheet" />
     <link id="pagestyle" th:href="@{/CSS/materialkit.css?v=3.0.0}" rel="stylesheet" />
+    <!--스크롤바-->
+    <link th:href="@{/CSS/CommonScrollBar.css}" rel="stylesheet" />
+    <link th:href="@{/CSS/FreeBoard/FreeBoardCss.css}" rel="stylesheet"/>
     <!--
 
     TemplateMo 569 Edu Meeting
@@ -104,11 +107,9 @@
                                             <h4 th:unless="${boardEntities.btitle.length > 18}"  th:text="${boardEntities.btitle}" style="margin-bottom:9px;"></h4>
                                         </a>
                                         <br>
-                                        <p th:if="${boardEntities.bcontents.length > 12}" style="margin-bottom:0px;" th:utext="${#strings.substring(boardEntities.bcontents,0,12)+'...'}" ></p>
-                                        <p th:unless="${boardEntities.bcontents.length > 12}" style="margin-bottom:0px;"  th:utext="${boardEntities.bcontents}" ></p>
                                         <div>
-                                            <a th:href="@{'/Board/Free/FreeBoardView/'+${boardEntities.bno}}" id="readmore" style="font-size:1em; margin-left:43px; ">
-                                                Read More<i class="material-icons mx-2" aria-hidden="true">follow_the_signs</i>
+                                            <a th:href="@{'/Board/Free/FreeBoardView/'+${boardEntities.bno}}" id="readmore" style="font-size:1em; margin-top:7px;">
+                                                Read More<i class="material-icons" aria-hidden="true">follow_the_signs</i>
                                             </a>
                                         </div>
                                     </div>
@@ -130,13 +131,17 @@
                                     </a>
                                 </li>
                                 <li th:class="${boardEntities.first} ? 'disabled'">
-                                    <a th:href="${boardEntities.first} ? '#' : @{/freeboard/(page=${boardEntities.number})} "><i class="fa fa-angle-left"></i></a>
+                                    <a th:href="${boardEntities.first} ? '#' : @{/freeboard/(page=${boardEntities.number})} ">
+                                        <
+                                    </a>
                                 </li>
                                 <li th:each="page : ${#numbers.sequence( start , last ) }">
                                     <a th:href="@{/freeboard/(page=${page})}" th:text="${page}"></a>
                                 </li>
                                 <li th:class="${boardEntities.last} ? 'disabled'">
-                                    <a th:href="${boardEntities.last} ? '#' : @{/freeboard/(page=${boardEntities.number+2})} "><i class="fa fa-angle-right"></i></a>
+                                    <a th:href="${boardEntities.last} ? '#' : @{/freeboard/(page=${boardEntities.number+2})} ">
+                                        >
+                                    </a>
                                 </li>
                                 <li>
                                     <a th:href="@{/freeboard/(page=${boardEntities.totalPages})}">
@@ -145,18 +150,13 @@
                                 </li>
                             </ul>
                         </div>
-
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
     </div>
-    <div th:replace="Footer.html :: footer"></div>
 </section>
+<div th:replace="Footer.html :: footer"></div>
 
 
 

@@ -25,24 +25,6 @@
         <div th:replace="Header.html :: header"></div>
         <script th:src="@{/JS/Board/ShareBoard/ShareBoardJS.js}"></script>
         <div class="container">
-                <div class="row">
-                        <div class="col-md-3">
-                                <a th:href="@{/LossBoardlist}"><h4 class="text-center">유기</h4></a>
-                        </div>
-                        <div class="col-md-3">
-                                <a th:href="@{/ShareBoardList}"><h4 class="text-center">분양</h4></a>
-                        </div>
-                        <div class="col-md-3">
-                                <a th:href="@{/hospitalboard}"><h4 class="text-center">병원</h4></a>
-                        </div>
-                        <div class="col-md-3">
-                                <a th:href="@{/freeboard}"><h4 class="text-center">자유</h4></a>
-                        </div>
-                </div>
-        </div>
-        <hr>
-        <br>
-        <div class="container">
                 <select id="selectBoxTest" onchange="changeSelection()">
                         <option value="시/도">시/도</option>
                         <div th:each=" select : ${select}">

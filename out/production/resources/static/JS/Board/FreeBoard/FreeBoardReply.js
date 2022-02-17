@@ -38,45 +38,19 @@ function freeReplyDelete(rno){
 }
 
 //자유게시판 댓글 수정
-function freeReplyUpdate(rno){
-    document.getElementById("fRNewContentsBox"+rno).innerHTML = "<input class='form-control' type='text' id='newFRContents' name='newFRContents'>";
-    document.getElementById("btnFRupdate"+rno).style = "display:none"; // 수정버튼 감추기
-    document.getElementById("btnFRchange"+rno).style = "display:block"; // 확인버튼 보이기
-        alert("확인4" + rno);
-
-    $(function(){
-        $("#btnFRchange"+rno).click(function(){ // 확인 버튼 클릭
-            $.ajax({
-                url: "/replyupdate",
-                data: {"rno" : rno, "newcontents" : document.getElementById("newFRContents").value},
-                success : function(result){
-                    alert(rno)
-//                    if(result == 1){
-//                            alert(rno);
-////                        document.getElementById("tdbcontents"+bno).innerHTML = document.getElementById("newcontents").value;
-////                        document.getElementById("btnrchange"+bno).style = "display:none"; // 확인버튼 감추기
-////                        document.getElementById("btnrupdate"+bno).style = "display:block"; // 수정버튼 보이기
-//                    } else {
-//                        alert("오류발생");
-//                    }
-                }
-            });
-        });
-    });
-}
-
 function rupdate(bno){
 
-    document.getElementById("tdbcontents"+bno).innerHTML = "<input class='form-control' type='text' id='newcontents' name='newcontents'>";
+    document.getElementById("tdbcontents"+bno).innerHTML = "<input class='form-control' type='text' id='newcontents' name='newcontents' style='white-space: nowrap;'>";
     document.getElementById("btnrupdate"+bno).style = "display:none"; // 수정버튼 감추기
     document.getElementById("btnrchange"+bno).style = "display:block"; // 확인버튼 보이기
+
     $("#btnrchange"+bno).click(function(){ // 확인 버튼 클릭
         $.ajax({
-            url: "/replyupdatea",
+            url: "/Board/Free/FreeBoardReplyUpdate",
             data: {"bno" : bno, "newcontents" : document.getElementById("newcontents").value},
             success : function(result){
                 if(result == 1){
-                    document.getElementById("tdbcontents"+bno).innerHTML = document.getElementById("newcontents").value;
+                    $("#freeReplytable").load(location.href + ' #freeReplytable');
                     document.getElementById("btnrchange"+bno).style = "display:none"; // 확인버튼 감추기
                     document.getElementById("btnrupdate"+bno).style = "display:block"; // 수정버튼 보이기
                 } else {
@@ -85,6 +59,4 @@ function rupdate(bno){
             }
         });
     });
-
-
 }
