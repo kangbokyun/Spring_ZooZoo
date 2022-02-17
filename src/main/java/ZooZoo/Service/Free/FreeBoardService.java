@@ -9,6 +9,7 @@ import ZooZoo.Domain.Entity.Category.CategoryEntity;
 import ZooZoo.Domain.Entity.Category.CategoryRepository;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
 import ZooZoo.Domain.Entity.Member.MemberRepository;
+import ZooZoo.Service.BoardLike.BoardLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +40,8 @@ public class FreeBoardService {
     BoardRepository boardRepository;
     @Autowired
     BoardImgRepository bimgRepository;
+    @Autowired
+    BoardLikeService boardLikeService;
     @Autowired
     private HttpServletRequest request;
 
@@ -164,14 +167,14 @@ public class FreeBoardService {
             session.setAttribute(String.valueOf(bno),1);
             session.setMaxInactiveInterval(60*60*24);
         }
-        System.out.println(entityOptional.get());
+
+
         return entityOptional.get();
     }
 
     //자유게시판 삭제
     public boolean deleteBoard(int bno) {
         Optional<BoardEntity> boardOpt = boardRepository.findById(bno);
-        System.out.println(boardOpt);
         if(boardOpt.get() != null){
             boardRepository.delete(boardOpt.get());
             return true;

@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface BoardLikeRepository extends JpaRepository<BoardLikeEntity,Integer> {
 
-    //해당 게시판 번호, 카테고리, 멤버의 좋아요가 존재하는지 유무
+    //해당 게시판 번호, 카테고리, 멤버의 좋아요의 수가 0이면(없으면) true 아니면(있으면) false
     @Query(nativeQuery = true, value = "SELECT IF(COUNT(*) = 0, 'true', 'false') AS NewResult FROM boardlike WHERE bno = :bno and cano = :cano and mno = :mno")
     Boolean findLike(@Param("bno") int bno, @Param("cano") int cano, @Param("mno") int mno);
 
