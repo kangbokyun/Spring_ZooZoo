@@ -13,4 +13,7 @@ public interface BoardLikeRepository extends JpaRepository<BoardLikeEntity,Integ
     //좋아요 번호 찾기
     @Query(nativeQuery = true, value = "SELECT blikeno FROM boardlike WHERE bno = :bno and cano = :cano and mno = :mno")
     int findLikeno(@Param("bno") int bno, @Param("cano") int cano, @Param("mno") int mno);
+
+    @Query(nativeQuery = true, value = "SELECT count(*) FROM boardlike WHERE bno = :bno")
+    int likeCount(@Param("bno") int bno);
 }

@@ -109,6 +109,7 @@
                 <div class="row">
                   <div id="fContentDiv" th:utext="${boardEntity.bcontents}" ></div>
                   <!--추천 시작-->
+                  <div class="my-4"></div>
                   <div style="text-align:center;" id="LikeBox">
                     <div th:if="${memberDTO == null} or ${memberDTO.mno == boardEntity.memberEntity.mno}">
                       <i  class="material-icons" style="font-size:30px;">favorite
@@ -122,7 +123,8 @@
                          th:onclick="likeClick([[${boardEntity.bno}]], [[${boardEntity.categoryEntity.cano}]], [[${memberDTO.getMno()}]])" >favorite
                       </i>
                     </div>
-                    <p class="mb-0" id="likeCount">123</p>
+                    <p th:unless="${likeCountNo != 0}" class="mb-0" >추천 부탁드립니다!</p>
+                    <p th:if="${likeCountNo != 0}" class="mb-0"  th:text="${likeCountNo}"></p>
                   </div>
                   <!--추천 끝-->
                   <div class="col-lg-12">

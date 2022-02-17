@@ -147,11 +147,11 @@ public class FreeBoardController {
                 bimglist.add(boardEntity.getBoardImgEntities().get(i).getBimg());
             }
             List<ReplyEntity> replyEntities = replyService.getAllReplys(bno, boardEntity.getCategoryEntity().getCano());
-            System.out.println("@@@@@@@@@@@@@@@@@@@@ service 갔다온 controller replyEntities : " + replyEntities);
             model.addAttribute("bimglist",bimglist);
             model.addAttribute("boardEntity", boardEntity);
             model.addAttribute("replyEntities",replyEntities);
-            System.out.println(replyEntities.size());
+            int likeCountNo = boardLikeService.likeCount(bno);
+            model.addAttribute("likeCountNo",likeCountNo);
         } catch(Exception e){
             System.out.println(e);
         }
