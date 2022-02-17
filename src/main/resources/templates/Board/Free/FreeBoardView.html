@@ -96,7 +96,7 @@
                   </div>
                   <div class="col-lg-2">
                     <div class="location">
-                      <p>작성일 <span th:text="${#strings.substring(boardEntity.createdDate,0,10)}" style="font-weight:bold; color:gray;"></span></p>
+                      <p>작성일 <span th:text="${#temporals.format( boardEntity.updateDate, 'yyyy-MM-dd HH:mm')}" style="font-weight:bold; color:gray; word-spacing:3px;"></span></p>
                     </div>
                   </div>
                   <div class="col-lg-1">
@@ -214,7 +214,7 @@
                               </div>
                             </div>
                             <div>
-                              <span  th:text="${#temporals.format( replyEntities.createdDate , 'yyyy-MM-dd HH:mm')}" style="color:gray; font-size:0.750em;"></span>
+                              <span  th:text="${#temporals.format( replyEntities.updateDate , 'yyyy-MM-dd HH:mm')}" style="color:gray; font-size:0.750em;"></span>
                             </div>
                             <div class="my-2">
                               <span th:id="tdbcontents+${replyEntities.getRno()}" th:text="${replyEntities.rcontents}" ></span>

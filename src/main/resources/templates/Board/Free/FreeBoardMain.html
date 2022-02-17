@@ -84,8 +84,8 @@
                                     </div>
                                     <div class="down-content" style="height:150px;">
                                         <div class="date">
-                                            <h6 class="mb-0" th:text="${#strings.substring(boardEntities.createdDate,5,7)}"> </h6>
-                                            <span class="mt-0" th:text="${#strings.substring(boardEntities.createdDate,8,10)}" style="font-size:0.8"></span>
+                                            <h6 class="mb-0" th:text="${#strings.substring(boardEntities.updateDate,5,7)}"> </h6>
+                                            <span class="mt-0" th:text="${#strings.substring(boardEntities.updateDate,8,10)}" style="font-size:0.8"></span>
                                         </div>
                                         <a th:href="@{'/Board/Free/FreeBoardView/'+${boardEntities.bno}}">
                                             <h4  th:if="${boardEntities.btitle.length > 18}"  th:text="${#strings.substring(boardEntities.btitle,0,18)+'...'}" style="margin-bottom:9px;"></h4>

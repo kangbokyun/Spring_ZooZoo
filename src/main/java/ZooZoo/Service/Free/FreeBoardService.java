@@ -194,7 +194,6 @@ public class FreeBoardService {
         BoardEntity boardEntity= boardRepository.findById(bno).get();
         int bsize = boardEntity.getBoardImgEntities().size();
         int file2size = file2.size();
-
         boardEntity.setBcontents(bcontents);
         boardEntity.setBtitle(btitle);
         //원래 첨부파일이 없고, 새로운 첨부파일도 없을때 1반환 (글쓰기 완료)
