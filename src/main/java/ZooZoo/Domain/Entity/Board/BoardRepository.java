@@ -25,10 +25,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Integer> {
                                     @Param("categoryNumber") int categoryNumber,
                                     @Param("search") String search);
 
-    @Query(nativeQuery = true, value = "select * from board where cano = :categoryNumber and bcontents like %:search%")
-    Page<BoardEntity> findAllContents(Pageable pageable,
-                                      @Param("categoryNumber") int categoryNumber,
-                                      @Param("search") String search);
 
 
     //전체 댓글

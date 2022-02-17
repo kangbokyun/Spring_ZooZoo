@@ -73,7 +73,6 @@ public class FreeBoardService {
             }
         }
         if(keyword != null && keyword.equals("btitle")) return boardRepository.findAllTitles(pageable, categoryNumber, search);
-        if(keyword != null && keyword.equals("bcontents")) return boardRepository.findAllContents(pageable, categoryNumber, search);
         return boardRepository.findAllBoard(pageable, categoryNumber);
 
     }
