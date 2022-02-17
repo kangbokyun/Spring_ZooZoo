@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Table(name = "member")
-@Getter @Setter @ToString (exclude={"boardEntities","replyEntities"}) @Builder
+@Getter @Setter @ToString (exclude={"boardEntities","replyEntities", "boardLikeEntities"}) @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class MemberEntity extends DateEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

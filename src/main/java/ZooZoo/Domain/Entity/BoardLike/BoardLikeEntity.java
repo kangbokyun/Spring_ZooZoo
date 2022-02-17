@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="boardlike")
-@ToString
+@ToString (exclude={"memberBLikeEntity", "boardBLikeEntity", "categoryBLikeEntity"})
 public class BoardLikeEntity extends DateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

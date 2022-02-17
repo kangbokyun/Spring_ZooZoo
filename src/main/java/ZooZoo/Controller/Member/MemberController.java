@@ -1,6 +1,7 @@
 package ZooZoo.Controller.Member;
 
 import ZooZoo.Domain.DTO.Member.MemberDTO;
+import ZooZoo.Service.Category.CategorySerivce;
 import ZooZoo.Service.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,14 @@ public class MemberController {
     MemberService memberService;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    CategorySerivce categorySerivce;
 
     // 시작 - 메인화면
     @GetMapping("/")
     public String goToMain(Model model) {
         HttpSession session = request.getSession();
+        categorySerivce.makeCategory();
         if (session.getAttribute("loginDTO") != null) {
             return "LogMain";
         } else {

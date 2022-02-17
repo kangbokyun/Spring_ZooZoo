@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name="category")
-@ToString (exclude={"boardEntities","replyEntities"})
+@ToString (exclude={"boardEntities","replyEntities", "boardLikeEntities"})
 @Builder
 @Getter
 @Setter

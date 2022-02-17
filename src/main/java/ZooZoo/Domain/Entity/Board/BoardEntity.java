@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="board")
-@ToString (exclude={"memberEntity","categoryEntity","boardImgEntities", "replyEntities"})
+@ToString (exclude={"memberEntity","categoryEntity","boardImgEntities", "replyEntities", "boardLikeEntities"})
 public class BoardEntity extends DateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
