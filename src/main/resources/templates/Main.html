@@ -58,15 +58,17 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" id="close" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button type="button" id="close1" class="btn btn-success" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
     $("#close").click(function(){
+        modal.style.display = "none";
+    });
+    $("#close1").click(function(){
         modal.style.display = "none";
     });
 </script>
