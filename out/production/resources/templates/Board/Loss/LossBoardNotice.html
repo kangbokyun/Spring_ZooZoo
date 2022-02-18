@@ -29,19 +29,12 @@
 </head>
 <body style="background-color: #ff7f50; overflow-x: hidden;">
 <div th:replace="Header.html :: header"></div>
-<h2 style="color:white;">공지</h2>
 <div class="container">
     <form action="/LossBoardNotice" method="get">
-        <h2 style="width:100px; font-size:18px; color:white;">공지</h2>
+        <div style="margin-bottom:30px;">
+            <h2 style="color:white;">유실유기동물 공지</h2>
+        </div>
         <div class="row">
-<!--            <div class="col-md-2 d-flex"> &lt;!&ndash; d-flex&ndash;&gt;-->
-<!--                <label style="width:100px; font-size:18px; color:white;"><strong>상태</strong></label>-->
-<!--                <select name="state" class="form-select">-->
-<!--                    <option value="total" selected="selected">전체</option>-->
-<!--                    <option value="보호중">보호중</option>-->
-<!--                    <option value="종료">종료</option>-->
-<!--                </select>-->
-<!--            </div>-->
             <div class="col-md-2 d-flex"> <!-- d-flex-->
                 <label style="width:100px; font-size:18px; color:white;"><strong>성별</strong></label>
                 <select name="sex" class="form-select">
