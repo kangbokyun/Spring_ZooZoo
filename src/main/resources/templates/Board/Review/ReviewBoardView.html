@@ -77,7 +77,7 @@
                       <img th:if="${boardEntity.boardImgEntities.size() != 0}" th:src="@{'/IMG/Board/ReviewBoardIMG/'+${boardEntity.boardImgEntities.get(0).bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                       <img th:if="${boardEntity.boardImgEntities.size() == 0}" th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#333333; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                     </div>
-                    <div class="carousel-item" th:each="boardImg : ${boardEntity.boardImgEntities}">
+                    <div class="carousel-item" th:each="boardImg, num : ${boardEntity.boardImgEntities}" th:if="${#lists.size(boardImg)}!=0 and ${num.index} >= 1">
                       <img th:if="${#lists.size(boardImg)}!=0" th:src="@{'/IMG/Board/ReviewBoardIMG/'+${boardImg.bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                       <img th:if="${#lists.size(boardImg)}==0" th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                     </div>

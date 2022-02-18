@@ -140,7 +140,7 @@ public class FreeBoardController {
     public String goToFreeBoardView(@PathVariable("bno") int bno, Model model) {
         HttpSession session =  request.getSession();
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
-        ArrayList<String> bimglist = new ArrayList<String>();
+        ArrayList<String> bimglist = new ArrayList<>();
         try {
             BoardEntity boardEntity = freeBoardService.getFreeBoardView(bno);
             for(int i =0; i<boardEntity.getBoardImgEntities().size(); i++){
