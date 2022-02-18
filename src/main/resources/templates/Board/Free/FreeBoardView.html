@@ -203,7 +203,7 @@
                                 </span>
                               </div>
                               <div class="col-md-1">
-                                <div class="d-flex justify-content-center" th:if="${memberDTO != null} and ${memberDTO.mid == replyEntities.memberEntity2.mid}">
+                                <div class="d-flex justify-content-center" th:if="${memberDTO != null} and ${memberDTO.mno == replyEntities.memberEntity2.mno}">
                                   <div style="margin-right:8px;">
                                     <a th:id="btnrupdate+${replyEntities.getRno()}"
                                        th:onclick="rupdate([[${replyEntities.getRno()}]])" class="ReplyBtns">
@@ -229,10 +229,25 @@
                             <div class="my-2">
                               <span th:id="tdbcontents+${replyEntities.getRno()}" th:text="${replyEntities.rcontents}" ></span>
                             </div>
-
+                            <div id="reReplyWritebtn" th:if="${memberDTO != null} and ${memberDTO.mno != replyEntities.memberEntity2.mno}">
+                              <a id="reReplyA" th:onclick="reReplyWrite([[${replyEntities.rno}]], [[${boardEntity.bno}]], [[${memberDTO.mno}]], [[${boardEntity.categoryEntity.cano}]])">
+                                답글
+                              </a>
+                            </div>
+                            <div class="py-2 my-2" th:id="reReplyInputBox+${replyEntities.getRno()}" style="display:none;">
+                              <div class="row d-flex justify-content-between" >
+                                <div class="col-lg-10">
+                                  <textarea class="form-control" aria-label="With textarea" style="max-height:250px;"></textarea>
+                                </div>
+                                <div class="col-lg-2">
+                                  <button class="form-control">답글 등록</button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <!-- 대댓글 -->
                       <!--댓글 끝-->
                     </div>
                   </div>
