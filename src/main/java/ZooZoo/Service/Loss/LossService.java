@@ -3,6 +3,7 @@ package ZooZoo.Service.Loss;
 import ZooZoo.Domain.DTO.Board.BoardDTO;
 import ZooZoo.Domain.DTO.Board.LossDTO;
 import ZooZoo.Domain.DTO.Pagination;
+import ZooZoo.Domain.DTO.Pagination1;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardRepository;
 import ZooZoo.Domain.Entity.Board.LossEntity;
@@ -37,7 +38,7 @@ public class LossService {
 
         try {
             // max page = 110
-            String urlStr = "https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=f116bb9347d04a38a639e01395505d21&pIndex=1&pSize=500";
+            String urlStr = "https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=f116bb9347d04a38a639e01395505d21&pIndex=1&pSize=1000";
             // Instantiate the Factory
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             // optional, but recommended
@@ -386,26 +387,17 @@ public class LossService {
     // 페이징 처리
     public ArrayList<LossDTO> parsenum(ArrayList<LossDTO> parses, int page) {
         ArrayList<LossDTO> parsepage = new ArrayList<>();
-        Pagination pagination = new Pagination();
+        Pagination1 pagination = new Pagination1();
         /*시작 페이지 값을 가져온다*/
         /*int page */
         /*화면에 뿌릴 페이지 사이즈 가져오기 */
-        pagination.setPageSize(12);
         int pagesize = pagination.getPageSize();
-
-        System.out.println("pagesize : " + pagesize);
 
         // 끝 페이지
         int maxPage = page * pagesize;
 
-        System.out.println("page : " + page);
-        System.out.println("maxPage : " + maxPage);
-        System.out.println("parses.size() : " + parses.size());
-
-
         // 시작페이지
         int minPage = (maxPage - pagesize) + 1;  // maxPage - maxpage-pagesize   1000 -
-        System.out.println("minPage : " + minPage);
         // 전체 리스트의 사이즈의 갯수보다 maxPage가 크다면 maxPage를 parses.size()값을 줘서 값을 맞추는것임
         if (maxPage > parses.size()) {
             maxPage = parses.size();
@@ -414,6 +406,7 @@ public class LossService {
         for (int i = minPage - 1; i < maxPage; i++) {
             parsepage.add(parses.get(i));
         }
+
         return parsepage;
     }
 

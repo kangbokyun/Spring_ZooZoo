@@ -5,6 +5,7 @@ import ZooZoo.Domain.DTO.Board.LossDTO;
 import ZooZoo.Domain.DTO.Board.ShareDTO;
 import ZooZoo.Domain.DTO.Member.MemberDTO;
 import ZooZoo.Domain.DTO.Pagination;
+import ZooZoo.Domain.DTO.Pagination1;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Service.Free.FreeBoardService;
 import ZooZoo.Service.Loss.LossService;
@@ -383,12 +384,7 @@ public class BoardController {
         ArrayList<LossDTO> parses = lossService.losslist(sex, kind, city, state); // 필터링 게시물
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
 
-        int totsize = parses.size();
-        System.out.println("totsize : " + totsize);
-        System.out.println("totsize1 : " + parses.size());
-        System.out.println("page : " + page);
-
-        Pagination pagination = new Pagination(totsize, page);
+        Pagination1 pagination = new Pagination1(parses.size(), page);
 
         model.addAttribute("parsesPage", parsesPage);
         model.addAttribute("pagination", pagination);
@@ -420,11 +416,7 @@ public class BoardController {
         ArrayList<LossDTO> parses = lossService.lossnoticelist(sex, kind, city, state); // 필터링 게시물
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
 
-        System.out.println("확인 : " + parses.size());
-
-
-
-        Pagination pagination = new Pagination(parses.size(), page);
+        Pagination1 pagination = new Pagination1(parses.size(), page);
 
         model.addAttribute("parsesPage", parsesPage);
         model.addAttribute("pagination", pagination);
