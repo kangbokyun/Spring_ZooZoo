@@ -1,0 +1,61 @@
+/*자유게시판 메인*/
+#freeboardmainbox:hover{
+    transform: translateY(-10px);
+   transition: all 0.2s cubic-bezier(0.34, 1.61, 0.7, 1.3);
+}
+#readmore{
+    color:coral;
+}
+#readmore:hover {
+   transition: all 0.2s cubic-bezier(0.34, 1.61, 0.7, 1.3);
+}
+#readmore:hover i{
+   transform: translateX(5px);
+   transition: all 0.2s cubic-bezier(0.34, 1.61, 0.7, 1.3);
+}
+/*자유게시판 view페이지 내용 css*/
+#fContentDiv{
+
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+   /* margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eee;*/
+}
+
+/*자유게시판 view페이지 내용 css 끝*/
+
+/*자유게시판 게시판 수정 페이지 css 시작*/
+.filebox{display:inline-block; width: 100%; height:100px; overflow:auto; border:1px solid #d2d2d2;}
+.filebox .fileList .fileName{padding-left: 10px;}
+.filebox .fileList .fileSize{padding-right: 10px; float:right;}
+
+/*이미지 삭제 버튼*/
+.imgDeletebtn:hover{
+    transform: translateY(-2px);
+    color: coral;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.61, 0.7, 1.3);
+}
+/*추천버튼*/
+/*드래그 방지*/
+#LikeBox{
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+#likeHeart:hover{
+    transform:scale(1.3);
+    opacity:0.8;
+    transition: all 0.4s cubic-bezier(0.34, 1.61, 0.7, 1.3);
+}
+#likeHeart2:hover{
+    transform:scale(1.3);
+    opacity:0.8;
+    transition: all 0.4s cubic-bezier(0.34, 1.61, 0.7, 1.3);
+}
+
+
+/*자유게시판 게시판 수정 페이지 css 끝*/
