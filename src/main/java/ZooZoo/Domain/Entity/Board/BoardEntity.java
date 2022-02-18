@@ -37,9 +37,6 @@ public class BoardEntity extends DateEntity {
     @Column(name="bstar")
     private String bstar; //병호 별점
 
-    //후기 게시판 분양 판별 컬럼
-    @Column(name="petstate")
-    private String petstate;
 
     //회원 번호 fk
     @ManyToOne
