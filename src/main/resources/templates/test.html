@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+
+    <style>
+        #modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal .modal-window {
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 25%;
+            height: 70%;
+            position: relative;
+            top: -70px;
+            padding: 10px;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+
+        #modal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+<!--Calling a normal Pop-Up modal-->
+<button type="button" class="btn btn-light" data-toggle="modal" data-target=".user-registration">User Registration
+
+
+</button>
+<div id="container">
+    <h2>Lorem Ipsum</h2>
+    <div id="lorem-ipsum"></div>
+</div>
+<div id="modal" class="modal-overlay">
+    <div class="modal-window">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User Registration</h5>
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 500px">
+                <span>First Name:</span>
+                <input type="text" class="form-control"/>
+                <span>Last Name:</span>
+                <input type="text" class="form-control"/>
+                <span>Date of Birth:</span>
+                <input type="text" class="form-control"/>
+                <span>Country:</span>
+                <select class="form-control">
+                    <option value="India">India</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="USA">USA</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Australia">Australia</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div id="modal" class="modal-overlay">-->
+<!--    <div class="modal-window">-->
+<!--        <div class="title">-->
+<!--            <h2>모달</h2>-->
+<!--        </div>-->
+<!--        <div class="close-area">X</div>-->
+<!--        <div class="content">-->
+<!--            <p>가나다라마바사 아자차카타파하</p>-->
+<!--            <p>가나다라마바사 아자차카타파하</p>-->
+<!--            <p>가나다라마바사 아자차카타파하</p>-->
+<!--            <p>가나다라마바사 아자차카타파하</p>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script>
+        const loremIpsum = document.getElementById("lorem-ipsum")
+        fetch("https://baconipsum.com/api/?type=all-meat&paras=200&format=html")
+            .then(response => response.text())
+            .then(result => loremIpsum.innerHTML = result)
+
+        $("#close").click(function(){
+            modal.style.display = "none";
+        });
+
+</script>
+
+</body>
+</html>

@@ -3,7 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
     <link th:href="@{/CSS/MainCSS.css}" rel="stylesheet">
 </head>
 <!-- 배경색 -->
@@ -14,13 +31,45 @@
     <div id="header">
         <div th:replace="Header.html :: header"></div>
     </div>
-    <div id="footer" style="vertical-align: bottom; margin-top:17vh;">
+    <div id="footer">
         <div th:replace="Footer.html :: footer"></div>
+    </div>
+</div>
+<div id="modal" class="modal-overlay">
+    <div class="modal-window">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">유실유기동물 공고</h5>
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 500px">
+                <p>
+                    「동물보호법」 제17조, 시행령7조 및 동법 시행규칙 제20조에 따라 유기·유실동물을 보호하고 있는 경우에는 소유자 등이
+                    보호조치 사실을 알 수 있도록 7일 이상 공고하여야 합니다.
+                    <br><br>
+                    공고 중인 동물 소유자는 해당 시군구 및 동물보호센터에 문의하시어 동물을 찾아가시기 바랍니다.
+                    <br><br>
+                    「동물보호법」 제17조에 따른 공고가 있는 날부터 10일이 경과하여도 소유자 등을 알 수 없는 경우에는 「유실물법」 제12조 및 「민법」 제253조의 규정에도 불구하고 해당 시·도지사 또는
+                    시장·군수·구청장이 그 동물의 소유권을 취득하게 됩니다.
+                    <br><br>
+                    「동물보호법」 제8조 및 동법 제 46조에 따라 동물 학대, 알선, 구매, 유기 등의 행위를 하는 경우에는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처하게 됩니다.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 
 
-</div>
+<script>
+    $("#close").click(function(){
+        modal.style.display = "none";
+    });
+</script>
 
 </body>
 </html>
