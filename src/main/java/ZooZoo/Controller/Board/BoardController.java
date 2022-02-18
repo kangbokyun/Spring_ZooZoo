@@ -365,7 +365,7 @@ public class BoardController {
         String sex = request.getParameter("sex"); // 성별
         String kind = request.getParameter("kind"); // 축종
         String city = request.getParameter("city"); // 시군구
-        String state = request.getParameter("state"); // 시군구
+        String state = request.getParameter("state"); // 상태
         HttpSession session = request.getSession();
 
         if (sex != null || kind != null || city != null || state != null) {
@@ -398,7 +398,7 @@ public class BoardController {
         String sex = request.getParameter("sex"); // 성별
         String kind = request.getParameter("kind"); // 축종
         String city = request.getParameter("city"); // 시군구
-        String state = request.getParameter("state"); // 시군구
+        String state = request.getParameter("state"); // 상태
         HttpSession session = request.getSession();
 
         if (sex != null || kind != null || city != null || state != null) {
@@ -412,6 +412,7 @@ public class BoardController {
             city = (String) session.getAttribute("city");
             state = (String) session.getAttribute("state");
         }
+
 
         ArrayList<LossDTO> parses = lossService.lossnoticelist(sex, kind, city, state); // 필터링 게시물
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징

@@ -308,7 +308,7 @@ public class LossService {
         return totlossnotice;
     }
 
-    // 필터링(공지동물 조회) 리스트
+    // 필터링(공지 중 동물 조회) 리스트
     public ArrayList<LossDTO> lossnoticelist(String sex, String kind, String city, String state) {
         ArrayList<LossDTO> totlossnotice = totlossnotice(); // 전체 리스트
         ArrayList<LossDTO> getlist = new ArrayList<>();
