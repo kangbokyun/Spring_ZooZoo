@@ -1,6 +1,7 @@
 package ZooZoo.Domain.Entity.Member;
 
 import ZooZoo.Domain.Entity.Board.BoardEntity;
+import ZooZoo.Domain.Entity.Board.LossEntity;
 import ZooZoo.Domain.Entity.BoardLike.BoardLikeEntity;
 import ZooZoo.Domain.Entity.DateEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
@@ -40,4 +41,5 @@ public class MemberEntity extends DateEntity {
     //게시판 추천
     @OneToMany(mappedBy="memberBLikeEntity", cascade = CascadeType.ALL)
     private List<BoardLikeEntity> boardLikeEntities = new ArrayList<>();
+
 }

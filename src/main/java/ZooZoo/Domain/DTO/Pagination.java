@@ -70,6 +70,7 @@ public class Pagination {
         setStartPage((block - 1) * blockSize + 1);
         /** 9. 블럭 마지막 페이지 **/
         setEndPage(startPage + blockSize - 1);
+        System.out.println("blockSize : " + blockSize);
         /* === 블럭 마지막 페이지에 대한 validation ===*/
         if(endPage > totalPageCnt){
             this.endPage = totalPageCnt;

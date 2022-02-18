@@ -358,7 +358,7 @@ public class BoardController {
     }
 
     // 유기게시판으로
-    @GetMapping("LossBoardlist")
+    @GetMapping("/LossBoardlist")
     public String goToLossBoardList(Model model, @RequestParam(defaultValue = "1") int page) {
 
         String sex = request.getParameter("sex"); // 성별
@@ -383,11 +383,52 @@ public class BoardController {
         ArrayList<LossDTO> parses = lossService.losslist(sex, kind, city, state); // 필터링 게시물
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
 
-        Pagination pagination = new Pagination(parses.size(), page);
+        int totsize = parses.size();
+        System.out.println("totsize : " + totsize);
+        System.out.println("totsize1 : " + parses.size());
+        System.out.println("page : " + page);
+
+        Pagination pagination = new Pagination(totsize, page);
 
         model.addAttribute("parsesPage", parsesPage);
         model.addAttribute("pagination", pagination);
         return "Board/Loss/LossBoardlist";
+    }
+
+    // 공지게시판으로
+    @GetMapping("/LossBoardNotice")
+    public String goToLossBoardNotice(Model model, @RequestParam(defaultValue = "1") int page) {
+
+        String sex = request.getParameter("sex"); // 성별
+        String kind = request.getParameter("kind"); // 축종
+        String city = request.getParameter("city"); // 시군구
+        String state = request.getParameter("state"); // 시군구
+        HttpSession session = request.getSession();
+
+        if (sex != null || kind != null || city != null || state != null) {
+            session.setAttribute("sex", sex);
+            session.setAttribute("kind", kind);
+            session.setAttribute("city", city);
+            session.setAttribute("state", state);
+        } else {
+            sex = (String) session.getAttribute("sex");
+            kind = (String) session.getAttribute("kind");
+            city = (String) session.getAttribute("city");
+            state = (String) session.getAttribute("state");
+        }
+
+        ArrayList<LossDTO> parses = lossService.lossnoticelist(sex, kind, city, state); // 필터링 게시물
+        ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
+
+        System.out.println("확인 : " + parses.size());
+
+
+
+        Pagination pagination = new Pagination(parses.size(), page);
+
+        model.addAttribute("parsesPage", parsesPage);
+        model.addAttribute("pagination", pagination);
+        return "Board/Loss/LossBoardNotice";
     }
 
     // 상세페이지로
@@ -426,6 +467,7 @@ public class BoardController {
             return "1";
         }
     }
+
     // 댓글 삭제
     @GetMapping("/replydelete")
     @ResponseBody

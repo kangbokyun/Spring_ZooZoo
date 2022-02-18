@@ -30,19 +30,6 @@
 <body style="  background-color: #ff7f50;">
 <div th:replace="Header.html :: header"></div>
 <div class="container">
-<!--    <div>-->
-<!--        <p>-->
-<!--            「동물보호법」 제17조, 시행령7조 및 동법 시행규칙 제20조에 따라 유기·유실동물을 보호하고 있는 경우에는 소유자 등이-->
-<!--            보호조치 사실을 알 수 있도록 7일 이상 공고하여야 합니다.-->
-
-<!--            공고 중인 동물 소유자는 해당 시군구 및 동물보호센터에 문의하시어 동물을 찾아가시기 바랍니다.-->
-
-<!--            「동물보호법」 제17조에 따른 공고가 있는 날부터 10일이 경과하여도 소유자 등을 알 수 없는 경우에는 「유실물법」 제12조 및 「민법」 제253조의 규정에도 불구하고 해당 시·도지사 또는-->
-<!--            시장·군수·구청장이 그 동물의 소유권을 취득하게 됩니다.-->
-
-<!--            「동물보호법」 제8조 및 동법 제 46조에 따라 동물 학대, 알선, 구매, 유기 등의 행위를 하는 경우에는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처하게 됩니다.-->
-<!--        </p>-->
-<!--    </div>-->
     <form action="/LossBoardlist" method="get">
         <div class="row">
             <div class="col-md-2 d-flex"> <!-- d-flex-->
@@ -108,11 +95,6 @@
                     <option value="화성시">화성시</option>
                 </select>
             </div>
-            <!--                <div style="width:250px;">-->
-            <!--                    <select name="cals09" id="cals09" class="form-select">-->
-            <!--                        <option value=''>전체</option>-->
-            <!--                    </select>-->
-            <!--                </div>-->
             <div class="col-md-1">
                 <input type="submit" value="검색" class="form-control">
             </div>
@@ -127,7 +109,7 @@
         <div class="row">
             <div class="col-lg-3 templatemo-item-col" th:each="lossDTO : ${parsesPage}">
                 <div class="meeting-item">
-                    <div class="thumblist" style="border-radius:20px;">
+                    <div class="thumblist" style="border-top-left-radius:20px; border-top-right-radius:20px;">
                         <a th:href="@{ '/Board/Loss/LossBoardView/' + ${lossDTO.ABDM_IDNTFY_NO} } ">
                             <img class="image-thumbnail" th:src="${lossDTO.IMAGE_COURS}" alt="">
                         </a>

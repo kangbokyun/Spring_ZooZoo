@@ -27,7 +27,7 @@ function freeboardDelete(bno){
 }
 
 //드래그앤 드롭으로 자유게시판 글 수정하기
-var fileList = []; //파일 정보를 담아 둘 배열
+var fileList = [];
 var fileIndex = 0; //파일 번호
 $(document).ready(function(){
     //드래그앤드랍

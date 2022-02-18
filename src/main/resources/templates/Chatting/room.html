@@ -19,7 +19,7 @@
     <label th:text="*{room.roomId}" id="roomId" class="form-inline"></label>
     <br>
     <label for="roomName" class="label label-default">방 이름</label>
-    <label th:text="*{room.name}" id="roomName" class="form-inline"></label>
+    <label th:text="*{room.name}" id="roomName" class="form-inline"></label><br>
     접속자 : <input type="text" id="nickname" class="form-inline" th:value="${loginDTO.mid}">
     <div id="chatroom" style="width:400px; height: 600px; border:1px solid; background-color : gray"></div>
     <input type="text" id="message" style="height : 30px; width : 340px" placeholder="내용을 입력하세요" autofocus>
@@ -35,12 +35,6 @@
         window.onload = function(){
             connect();
         }
-<!--        document.getElementById("name").addEventListener("click",function(){-->
-<!--            nickname = document.getElementById("nickname").value;-->
-<!--            document.getElementById("nickname").style.display = "none";-->
-<!--            document.getElementById("name").style.display = "none";-->
-<!--            connect();-->
-<!--        })-->
         document.getElementById("send").addEventListener("click",function(){
             send();
         })

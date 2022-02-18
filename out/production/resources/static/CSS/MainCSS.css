@@ -119,7 +119,7 @@ li { list-style:none; }
     overflow:hidden;
     margin:0 auto;
 }
-.thumblist {
+.thumblist{
     width:100% ;
     height:300px;
     overflow:hidden;
@@ -127,6 +127,19 @@ li { list-style:none; }
 }
 
 .image-thumbnail {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.photolist{
+    width:30% ;
+    height:100px;
+    overflow:hidden;
+    margin:0 auto;
+}
+
+.photo {
     width:100%;
     height:100%;
     object-fit:cover;
@@ -186,4 +199,20 @@ li { list-style:none; }
     padding: 0px 10px;
     text-shadow: 1px 1px 2px gray;
     color: white;
+}
+
+
+.mainBoard {
+    width: 468px;
+    float: left;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.mainBoard .board {
+    background-color: #ffffff;
+    height: 200px;
+    padding: 14px 20px;
+    margin-top: 20px;
+    position: relative;
 }

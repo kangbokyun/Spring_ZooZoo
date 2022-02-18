@@ -29,25 +29,9 @@
     -->
 </head>
 
-<body style="  background-color: #ff7f50;">
+<body style="background-color: #ff7f50; overflow-x: hidden;">
 
 <div th:replace="Header.html :: header"></div>
-<div class ="container">
-    <div class = "row">
-        <div class = "col-md-3">
-            <a th:href = "@{/LossBoardlist}"><h4 class = "text-center">유기</h4></a>
-        </div>
-        <div class = "col-md-3">
-            <a th:href = "@{/ShareBoardList}"><h4 class = "text-center">분양</h4></a>
-        </div>
-        <div class = "col-md-3">
-            <a th:href = "@{/hospitalboard}"><h4 class = "text-center">병원</h4></a>
-        </div>
-        <div class = "col-md-3">
-            <a th:href = "@{/freeboard}"><h4 class = "text-center">자유</h4></a>
-        </div>
-    </div>
-</div>
 <section class="heading-page header-text" id="top">
     <div class="container">
         <div class="row">
@@ -69,18 +53,20 @@
                             <div class="thumb">
                                 <div class="price">
                                     <span th:text="${lossDTO.PBLANC_IDNTFY_NO}">공고번호</span>
+                                    <span th:text="${lossDTO.ABDM_IDNTFY_NO}">apikey</span>
                                 </div>
-                                <!--                                <div style="max-height:800px;">-->
-                                <!--                                    <img th:src="${lossDTO.IMAGE_COURS}">-->
-                                <!--                                </div>-->
                                 <div class="image-box">
                                     <img class="image-thumbnail" th:src="${lossDTO.IMAGE_COURS}">
                                 </div>
-
                             </div>
                             <div class="down-content">
                                 <h4 th:text="${lossDTO.details}">품종</h4>
                                 <p>상태 : <span th:text="${lossDTO.STATE_NM}"></span></p>
+                                <a th:href="@{/Lossapi}">
+                                    <button type="button" class="btn btn-info w-auto me-1 mb-0" th:onclick="lossapi([[${lossDTO.ABDM_IDNTFY_NO}]])">분양받기</button>
+                                </a>
+
+
                                 <table class="table" style="margin-bottom : 16px;">
                                     <tr>
                                         <td>공고번호</td>

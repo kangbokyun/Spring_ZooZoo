@@ -5,6 +5,8 @@ import ZooZoo.Domain.DTO.Board.LossDTO;
 import ZooZoo.Domain.DTO.Pagination;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardRepository;
+import ZooZoo.Domain.Entity.Board.LossEntity;
+import ZooZoo.Domain.Entity.Board.LossRepository;
 import ZooZoo.Domain.Entity.Category.CategoryEntity;
 import ZooZoo.Domain.Entity.Category.CategoryRepository;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
@@ -21,9 +23,9 @@ import javax.transaction.Transactional;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class LossService {
@@ -89,14 +91,14 @@ public class LossService {
                     // 공고시작일자 - 삽입
                     String PBLANC_BEGIN_DE = element.getElementsByTagName("PBLANC_BEGIN_DE").item(0).getTextContent();
                     StringBuffer newPBLANC_BEGIN_DE = null;
-                    StringBuffer buffer1 = new StringBuffer(RECEPT_DE);
+                    StringBuffer buffer1 = new StringBuffer(PBLANC_BEGIN_DE);
                     buffer1.insert(4, "-");
                     buffer1.insert(7, "-");
                     newPBLANC_BEGIN_DE = buffer1;
                     // 공고종료일자 - 삽입
                     String PBLANC_END_DE = element.getElementsByTagName("PBLANC_END_DE").item(0).getTextContent();
                     StringBuffer newPBLANC_END_DE = null;
-                    StringBuffer buffer2 = new StringBuffer(RECEPT_DE);
+                    StringBuffer buffer2 = new StringBuffer(PBLANC_END_DE);
                     buffer2.insert(4, "-");
                     buffer2.insert(7, "-");
                     newPBLANC_END_DE = buffer2;
@@ -240,6 +242,135 @@ public class LossService {
         return null;
     }
 
+    // 메인 공고
+    public ArrayList<LossDTO> getlossnotice() {
+        ArrayList<LossDTO> totLosslist = totlosslist();
+        ArrayList<LossDTO> totgetLossnotice = new ArrayList<>();
+        ArrayList<LossDTO> getlist = new ArrayList<>();
+
+        SimpleDateFormat format = new SimpleDateFormat ("yyyyMMdd");
+        Date time = new Date();
+        String current = format.format(time);
+        Date today = null;
+        for (int i = 0; i < totLosslist.size(); i++){
+            try {
+                today = format.parse(current);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date end = null;
+            try {
+                end = format.parse(totLosslist.get(i).getPBLANC_END_DE());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int result = today.compareTo(end);
+
+            if (result < 0) {
+                totgetLossnotice.add(totLosslist.get(i));
+            }
+        }
+        Collections.shuffle(totgetLossnotice);
+        getlist.add(totgetLossnotice.get(0));
+        getlist.add(totgetLossnotice.get(1));
+        getlist.add(totgetLossnotice.get(2));
+        return getlist;
+    }
+
+    // 메인 공고
+    public ArrayList<LossDTO> totlossnotice() {
+        ArrayList<LossDTO> totLosslist = totlosslist();
+        ArrayList<LossDTO> totlossnotice = new ArrayList<>();
+
+        SimpleDateFormat format = new SimpleDateFormat ("yyyyMMdd");
+        Date time = new Date();
+        String current = format.format(time);
+        Date today = null;
+        for (int i = 0; i < totLosslist.size(); i++){
+            try {
+                today = format.parse(current);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date end = null;
+            try {
+                end = format.parse(totLosslist.get(i).getPBLANC_END_DE());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int result = today.compareTo(end);
+
+            if (result < 0) {
+                totlossnotice.add(totLosslist.get(i));
+            }
+        }
+        return totlossnotice;
+    }
+
+    // 필터링(공지동물 조회) 리스트
+    public ArrayList<LossDTO> lossnoticelist(String sex, String kind, String city, String state) {
+        ArrayList<LossDTO> totlossnotice = totlossnotice(); // 전체 리스트
+        ArrayList<LossDTO> getlist = new ArrayList<>();
+
+        try {
+            if ((sex == null && kind == null && city == null && state == null) || (sex.equals("total") && kind.equals("total") && city.equals("total") && state.equals("total"))) {
+                return totlossnotice; // 초기화면 (검색 없음)
+            }
+            for (int i = 0; i < totlossnotice.size(); i++) {
+                // 전체 조건 검색
+                if (sex != null && kind != null && city != null && state != null && totlossnotice.get(i).getSEX_NM().equals(sex) && totlossnotice.get(i).getSPECIES_NM().equals(kind) && totlossnotice.get(i).getCity().equals(city) && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 상태만 total
+                } else if ((state == null || state.equals("total")) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind) && city != null && totlossnotice.get(i).getCity().equals(city)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 성별만 total
+                } else if ((sex == null || sex.equals("total")) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind) && city != null && totlossnotice.get(i).getCity().equals(city) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 종류만 total
+                } else if ((kind == null || kind.equals("total")) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex) && city != null && totlossnotice.get(i).getCity().equals(city) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 시군구만 total
+                } else if ((city == null || city.equals("total")) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 상태, 성별
+                } else if (((state == null && sex == null) || (state.equals("total") && sex.equals("total"))) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind) && city != null && totlossnotice.get(i).getCity().equals(city)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 상태, 종류
+                } else if (((state == null && kind == null) || (state.equals("total") && kind.equals("total"))) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex) && city != null && totlossnotice.get(i).getCity().equals(city)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 상태, 시군구
+                } else if (((state == null && city == null) || (state.equals("total") && city.equals("total"))) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 종류, 시군구 total
+                } else if (((kind == null && city == null) || (kind.equals("total") && city.equals("total"))) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 성별, 시군구 total
+                } else if (((sex == null && city == null) || (sex.equals("total") && city.equals("total"))) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    // 성별, 종류 total
+                } else if (((sex == null && kind == null) || (sex.equals("total") && kind.equals("total"))) && city != null && totlossnotice.get(i).getCity().equals(city) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                    //상태 성별 종류
+                } else if (((state == null && sex == null && kind == null) || (state.equals("total") && sex.equals("total") && kind.equals("total"))) && city != null && totlossnotice.get(i).getCity().equals(city)) {
+                    getlist.add(totlossnotice.get(i));
+                    //상태 성별 시군구
+                } else if (((state == null && sex == null && city == null) || (state.equals("total") && sex.equals("total") && city.equals("total"))) && kind != null && totlossnotice.get(i).getSPECIES_NM().equals(kind)) {
+                    getlist.add(totlossnotice.get(i));
+                    //상태 종류 시군구
+                } else if (((state == null && kind == null && city == null) || (state.equals("total") && kind.equals("total") && city.equals("total"))) && sex != null && totlossnotice.get(i).getSEX_NM().equals(sex)) {
+                    getlist.add(totlossnotice.get(i));
+                    //성별 종류 시군구
+                } else if (((city == null && sex == null && kind == null) || (city.equals("total") && sex.equals("total") && kind.equals("total"))) && state != null && totlossnotice.get(i).getSTATE_NM().contains(state)) {
+                    getlist.add(totlossnotice.get(i));
+                }
+            }
+            return getlist;
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     // 상세페이지
     public ArrayList<LossDTO> getlossboard(String ABDM_IDNTFY_NO) {
         ArrayList<LossDTO> totLosslist = totlosslist();
@@ -262,12 +393,19 @@ public class LossService {
         pagination.setPageSize(12);
         int pagesize = pagination.getPageSize();
 
+        System.out.println("pagesize : " + pagesize);
+
         // 끝 페이지
         int maxPage = page * pagesize;
 
+        System.out.println("page : " + page);
+        System.out.println("maxPage : " + maxPage);
+        System.out.println("parses.size() : " + parses.size());
+
+
         // 시작페이지
         int minPage = (maxPage - pagesize) + 1;  // maxPage - maxpage-pagesize   1000 -
-        System.out.println(parses.size());
+        System.out.println("minPage : " + minPage);
         // 전체 리스트의 사이즈의 갯수보다 maxPage가 크다면 maxPage를 parses.size()값을 줘서 값을 맞추는것임
         if (maxPage > parses.size()) {
             maxPage = parses.size();
@@ -278,6 +416,7 @@ public class LossService {
         }
         return parsepage;
     }
+
 
     @Autowired
     BoardRepository boardRepository;
@@ -306,6 +445,7 @@ public class LossService {
         boardRepository.save(boardEntity);
         return true;
     }
+
 
     // 해당 게시물 모든 댓글 출력
     @Transactional
@@ -338,4 +478,7 @@ public class LossService {
         boardEntity.setBcontents(newcontents);
         return true;
     }
+
+    // 분양하기
+
 }

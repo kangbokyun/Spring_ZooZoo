@@ -31,6 +31,118 @@
     <div id="header">
         <div th:replace="Header.html :: header"></div>
     </div>
+
+    <div class="mainBoard">
+        <!-- 유기동물공고 -->
+        <div class="animal board">
+            <h1 style="display:none">유기동물공고영역</h1>
+            <div class="boardTit">
+                <h3>유기동물 공고</h3>
+                <a th:href="@{/LossBoardNotice}" class="moreBtn" title="유기동물공고 더 많이 보기">유기동물공고 더 많이 보기</a>
+            </div>
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="boardCon" th:each="lossDTO, i : ${lossDTOS}">
+                            <div id="board-slider1" class="board-sliders2" th:if="${i.index == 0}">
+                                <div class="slide1 d-flex">
+                                    <div class="photolist col-md-3">
+                                        <img class="photo" th:src="${lossDTO.IMAGE_COURS}" alt="">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <table>
+                                            <tr>
+                                                <td width="30%">발견장소</td>
+                                                <td th:text="${lossDTO.DISCVRY_PLC_INFO}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>공고</td>
+                                                <td><span th:text="${lossDTO.newPBLANC_BEGIN_DE}"></span> ~ <span
+                                                        th:text="${lossDTO.newPBLANC_END_DE}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>특징</td>
+                                                <td th:text="${lossDTO.SFETR_INFO}"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="boardCon" th:each="lossDTO, i : ${lossDTOS}">
+                            <div id="board-slider2" class="board-sliders2" th:if="${i.index == 1}">
+                                <div class="slide1 d-flex">
+                                    <div class="photolist col-md-3">
+                                        <img class="photo" th:src="${lossDTO.IMAGE_COURS}" alt="">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <table>
+                                            <tr>
+                                                <td width="30%">발견장소</td>
+                                                <td th:text="${lossDTO.DISCVRY_PLC_INFO}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>공고</td>
+                                                <td><span th:text="${lossDTO.newPBLANC_BEGIN_DE}"></span> ~ <span
+                                                        th:text="${lossDTO.newPBLANC_END_DE}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>특징</td>
+                                                <td th:text="${lossDTO.SFETR_INFO}"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="boardCon" th:each="lossDTO, i : ${lossDTOS}">
+                            <div id="board-slider3" class="board-sliders3" th:if="${i.index == 2}">
+                                <div class="slide1 d-flex">
+                                    <div class="photolist col-md-3">
+                                        <img class="photo" th:src="${lossDTO.IMAGE_COURS}" alt="">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <table>
+                                            <tr>
+                                                <td width="30%">발견장소</td>
+                                                <td th:text="${lossDTO.DISCVRY_PLC_INFO}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>공고</td>
+                                                <td><span th:text="${lossDTO.newPBLANC_BEGIN_DE}"></span> ~ <span
+                                                        th:text="${lossDTO.newPBLANC_END_DE}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>특징</td>
+                                                <td th:text="${lossDTO.SFETR_INFO}"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- 유기동물공고 -->
+    </div>
+
     <div id="footer">
         <div th:replace="Footer.html :: footer"></div>
     </div>
@@ -51,7 +163,8 @@
                     <br><br>
                     공고 중인 동물 소유자는 해당 시군구 및 동물보호센터에 문의하시어 동물을 찾아가시기 바랍니다.
                     <br><br>
-                    「동물보호법」 제17조에 따른 공고가 있는 날부터 10일이 경과하여도 소유자 등을 알 수 없는 경우에는 「유실물법」 제12조 및 「민법」 제253조의 규정에도 불구하고 해당 시·도지사 또는
+                    「동물보호법」 제17조에 따른 공고가 있는 날부터 10일이 경과하여도 소유자 등을 알 수 없는 경우에는 「유실물법」 제12조 및 「민법」 제253조의 규정에도 불구하고 해당
+                    시·도지사 또는
                     시장·군수·구청장이 그 동물의 소유권을 취득하게 됩니다.
                     <br><br>
                     「동물보호법」 제8조 및 동법 제 46조에 따라 동물 학대, 알선, 구매, 유기 등의 행위를 하는 경우에는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처하게 됩니다.
@@ -68,9 +181,27 @@
     $("#close").click(function(){
         modal.style.display = "none";
     });
+
     $("#close1").click(function(){
         modal.style.display = "none";
     });
+
+    $(function() {
+        $('#board-slider').slidesjs({
+            width: 500,
+            height: 120,
+            play: {
+                active: true,
+                auto: false,
+                interval: 3000,
+                swap: true
+            }
+        });
+    });
+
+
+
+
 </script>
 
 </body>

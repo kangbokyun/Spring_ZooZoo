@@ -24,6 +24,7 @@
             <th>번호(pk)</th>
             <th>개설자 이름</th>
             <th>입장버튼</th>
+            <th>채팅가능여부</th>
         </tr>
         </thead>
         <tbody>
@@ -31,7 +32,11 @@
             <td th:text="${room.roomId}"></td>
             <td th:text="${room.name}"></td>
             <td>
-                <a class = "btn btn-primary" th:href = "@{/rooms/{id} (id = ${room.roomId})}"></a>
+                <a class = "btn btn-primary" th:href = "@{/rooms/{id} (id = ${room.roomId})}">입장</a>
+            </td>
+            <td>
+                <span th:if = "${room.roomId == loginDTO.mno}">채팅가능</span>
+                <span th:if = "${room.roomId != loginDTO.mno}">채팅불가</span>
             </td>
         </tr>
         </tbody>

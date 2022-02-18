@@ -1,6 +1,8 @@
 package ZooZoo.Controller.Member;
 
+import ZooZoo.Domain.DTO.Board.LossDTO;
 import ZooZoo.Domain.DTO.Member.MemberDTO;
+import ZooZoo.Service.Loss.LossService;
 import ZooZoo.Service.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,14 +23,19 @@ public class MemberController {
     MemberService memberService;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    LossService lossService;
 
     // 시작 - 메인화면
     @GetMapping("/")
     public String goToMain(Model model) {
         HttpSession session = request.getSession();
+        ArrayList<LossDTO> lossDTOS = lossService.getlossnotice();
+
         if (session.getAttribute("loginDTO") != null) {
             return "LogMain";
         } else {
+            model.addAttribute("lossDTOS",lossDTOS);
             return "Main";
         }
     }

@@ -27,10 +27,12 @@
 
     -->
 </head>
-<body style="  background-color: #ff7f50;">
+<body style="background-color: #ff7f50; overflow-x: hidden;">
 <div th:replace="Header.html :: header"></div>
+<h2 style="color:white;">공지</h2>
 <div class="container">
-    <form action="/LossBoardlist" method="get">
+    <form action="/LossBoardNotice" method="get">
+        <h2 style="width:100px; font-size:18px; color:white;">공지</h2>
         <div class="row">
             <div class="col-md-2 d-flex"> <!-- d-flex-->
                 <label style="width:100px; font-size:18px; color:white;"><strong>상태</strong></label>
@@ -109,7 +111,7 @@
         <div class="row">
             <div class="col-lg-3 templatemo-item-col" th:each="lossDTO : ${parsesPage}">
                 <div class="meeting-item">
-                    <div class="thumblist" style="border-top-left-radius:20px; border-top-right-radius:20px;">
+                    <div class="thumblist" style="border-radius:20px;">
                         <a th:href="@{ '/Board/Loss/LossBoardView/' + ${lossDTO.ABDM_IDNTFY_NO} } ">
                             <img class="image-thumbnail" th:src="${lossDTO.IMAGE_COURS}" alt="">
                         </a>
