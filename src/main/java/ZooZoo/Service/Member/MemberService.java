@@ -8,6 +8,8 @@ import ZooZoo.Domain.Entity.Member.MemberRepository;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -158,6 +160,101 @@ public class MemberService {
         return count;
     }
 
+    // 내가 쓴 게시물 가져오기
+    public List<BoardEntity> getmyboard(int mno) {
+        List<BoardEntity> boardEntities = boardRepository.findAll();
+        List<BoardEntity> getmyboard = new ArrayList<>();
+
+        for (int i = 0; i < boardEntities.size(); i++) {
+            if (boardEntities.get(i).getMemberEntity().getMno() == mno &&
+                    (boardEntities.get(i).getCategoryEntity().getCano() == 4 ||
+                            boardEntities.get(i).getCategoryEntity().getCano() == 5)) {
+                getmyboard.add(boardEntities.get(i));
+            }
+        }
+
+        return getmyboard;
+
+    }
+
+    // 내가 쓴 게시물 가져오기
+    public List<BoardEntity> getmybreply(int mno) {
+        List<BoardEntity> boardEntities = boardRepository.findAll();
+        List<BoardEntity> getmyboard = new ArrayList<>();
+
+        for (int i = 0; i < boardEntities.size(); i++) {
+            if (boardEntities.get(i).getMemberEntity().getMno() == mno &&
+                    (boardEntities.get(i).getCategoryEntity().getCano() == 1 ||
+                            boardEntities.get(i).getCategoryEntity().getCano() == 2 ||
+                            boardEntities.get(i).getCategoryEntity().getCano() == 3 ||
+                            boardEntities.get(i).getCategoryEntity().getCano() == 5)) {
+                getmyboard.add(boardEntities.get(i));
+            }
+        }
+        return getmyboard;
+    }
+    // 내가 쓴 게시물 가져오기
+    public List<ReplyEntity> getmyreply(int mno) {
+        List<ReplyEntity> replyEntities = replyRepository.findAll();
+        List<ReplyEntity> getmyboard = new ArrayList<>();
+
+        for (int i = 0; i < replyEntities.size(); i++) {
+            if (replyEntities.get(i).getMemberEntity2().getMno() == mno &&
+                    (replyEntities.get(i).getCategoryEntity2().getCano() == 4)) {
+                getmyboard.add(replyEntities.get(i));
+            }
+        }
+        return getmyboard;
+    }
+
+//    // 내가 쓴 게시물 가져오기
+//    @Transactional
+//    public List<BoardEntity> getmyboard(int mno) {
+//
+//        List<BoardEntity> boardEntities = new ArrayList<>();
+//        List<BoardEntity> boardEntities1 = new ArrayList<>();
+//        List<BoardEntity> finalboard = new ArrayList<>();
+//
+//
+//        try {
+//            boardEntities = boardRepository.findmyboard(4, mno);
+//            boardEntities1 = boardRepository.findmyboard(5, mno);
+//        } catch (Exception e) {
+//        }
+//
+//        return boardEntities;
+//    }
+
+//    // 내가 쓴 댓글 가져오기
+//    public List<BoardEntity> getmyreply(int mno) {
+//        List<BoardEntity> replyEntities1 = boardRepository.findmyboard(1,mno);
+//        List<BoardEntity> replyEntities2 = boardRepository.findmyboard(2,mno);
+//        List<BoardEntity> replyEntities3 = boardRepository.findmyboard(3,mno);
+//        List<BoardEntity> replyEntities4 = replyRepository.findmyreply(mno);
+//        List<BoardEntity> replyEntities5 = boardRepository.findmyboard(5,mno);
+//
+//        List<BoardEntity> getmyreply = new ArrayList<>();
+//
+//        for (int i = 0; i < replyEntities1.size(); i++) {
+//            getmyreply.add(replyEntities1.get(i));
+//        }
+//        for (int i = 0; i < replyEntities2.size(); i++) {
+//            getmyreply.add(replyEntities2.get(i));
+//        }
+//        for (int i = 0; i < replyEntities3.size(); i++) {
+//            getmyreply.add(replyEntities3.get(i));
+//        }
+//        for (int i = 0; i < replyEntities4.size(); i++) {
+//            getmyreply.add(replyEntities4.get(i));
+//        }
+//        for (int i = 0; i < replyEntities5.size(); i++) {
+//            getmyreply.add(replyEntities5.get(i));
+//        }
+//
+//        return getmyreply;
+//    }
+
+
     // 댓글 세기
     public int countreply(int mno) {
         List<BoardEntity> boardEntities = boardRepository.findAll();
@@ -173,7 +270,7 @@ public class MemberService {
         }
         // reply DB (자유 댓글)
         for (int i = 0; i < replyEntities.size(); i++) {
-            if (replyEntities.get(i).getMemberEntity2().getMno() == mno){
+            if (replyEntities.get(i).getMemberEntity2().getMno() == mno) {
                 count++;
             }
         }

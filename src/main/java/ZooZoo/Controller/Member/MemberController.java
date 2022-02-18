@@ -2,6 +2,8 @@ package ZooZoo.Controller.Member;
 
 import ZooZoo.Domain.DTO.Board.LossDTO;
 import ZooZoo.Domain.DTO.Member.MemberDTO;
+import ZooZoo.Domain.Entity.Board.BoardEntity;
+import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import ZooZoo.Service.Loss.LossService;
 import ZooZoo.Service.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,14 +85,25 @@ public class MemberController {
         int bcount = memberService.countboard(loginDTO.getMno());
         // 댓글 수 가져오기
         int rcount = memberService.countreply(loginDTO.getMno());
+
+        // 내가 쓴 글 가져오기
+//        List<BoardEntity> boardEntities = memberService.getmyboard(loginDTO.getMno());
+        // 내가 쓴 댓글 가져오기
+        List<BoardEntity> boardEntities = memberService.getmybreply(loginDTO.getMno());
+        List<ReplyEntity> replyEntities = memberService.getmyreply(loginDTO.getMno());
+
         // html로 전달
         model.addAttribute("loginDTO", loginDTO);
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("bcount", bcount);
         model.addAttribute("rcount", rcount);
+        model.addAttribute("boardEntities", boardEntities);
+        model.addAttribute("replyEntities", replyEntities);
 
         return "Member/Myinfo";
     }
+
+
 
 
     // 회원가입

@@ -34,4 +34,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Integer> {
     @Query(nativeQuery = true, value = "select * from board where apikey = :apikey and cano = :cano order by bno DESC")
     List<BoardEntity> findAllReply(@Param("apikey") String apikey, @Param("cano") int cano);
 
+
+    @Query(nativeQuery = true, value = "select * from board where cano = :cano and mno = :mno")
+    List<BoardEntity> findmyboard(@Param("cano") int cano, @Param("mno") int mno);
+
+
+
 }
