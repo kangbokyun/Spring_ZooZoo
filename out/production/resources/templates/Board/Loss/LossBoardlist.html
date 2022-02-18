@@ -27,7 +27,7 @@
 
     -->
 </head>
-<body style="  background-color: #ff7f50;">
+<body style="background-color: #ff7f50; overflow-x: hidden;">
 <div th:replace="Header.html :: header"></div>
 <div class="container">
     <form action="/LossBoardlist" method="get">
@@ -58,8 +58,8 @@
                     <option value="기타축종">기타</option>
                 </select>
             </div>
-            <div class="d-flex" style="width:300px;">
-                <label style="width:280px; font-size:18px; color:white;"><strong>지역(시군구)</strong></label>
+            <div class="d-flex" style="width:350px;">
+                <label style="width:280px; font-size:18px; color:white;"><strong>보호지역(시군구)</strong></label>
                 <select name="city" onchange="categoryChange(this)" class="form-select">
                     <option value="total" selected="selected">전체</option>
                     <option value="가평군">가평군</option>

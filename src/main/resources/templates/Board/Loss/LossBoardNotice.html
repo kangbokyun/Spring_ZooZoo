@@ -53,8 +53,8 @@
                     <option value="기타축종">기타</option>
                 </select>
             </div>
-            <div class="d-flex" style="width:300px;">
-                <label style="width:280px; font-size:18px; color:white;"><strong>지역(시군구)</strong></label>
+            <div class="d-flex" style="width:350px;">
+                <label style="width:280px; font-size:18px; color:white;"><strong>보호지역(시군구)</strong></label>
                 <select name="city" onchange="categoryChange(this)" class="form-select">
                     <option value="total" selected="selected">전체</option>
                     <option value="가평군">가평군</option>
@@ -104,7 +104,7 @@
         <div class="row">
             <div class="col-lg-3 templatemo-item-col" th:each="lossDTO : ${parsesPage}">
                 <div class="meeting-item">
-                    <div class="thumblist" style="border-radius:20px;">
+                    <div class="thumblist" style="border-top-left-radius:20px; border-top-right-radius:20px;">
                         <a th:href="@{ '/Board/Loss/LossBoardView/' + ${lossDTO.ABDM_IDNTFY_NO} } ">
                             <img class="image-thumbnail" th:src="${lossDTO.IMAGE_COURS}" alt="">
                         </a>
@@ -115,12 +115,16 @@
                         </a>
                         <table class="table">
                             <tr>
-                                <td width="40%">접수일자</td>
-                                <td th:text="${lossDTO.newRECEPT_DE}"></td>
+                                <td width="40%">공고번호</td>
+                                <td th:text="${lossDTO.PBLANC_IDNTFY_NO}" style="font-size:14px;"></td>
                             </tr>
                             <tr>
                                 <td>품종</td>
                                 <td th:text="${lossDTO.SPECIES_NM}"></td>
+                            </tr>
+                            <tr>
+                                <td height="60px;">발견장소</td>
+                                <td th:text="${lossDTO.DISCVRY_PLC_INFO}"></td>
                             </tr>
                             <tr>
                                 <td>보호지역</td>
@@ -136,7 +140,7 @@
                             </tr>
                             <tr>
                                 <td>상태</td>
-                                <td th:text="${lossDTO.STATE_NM}"></td>
+                                <td>공고중</td>
                             </tr>
                             <tr>
                                 <td>공고기간</td>
