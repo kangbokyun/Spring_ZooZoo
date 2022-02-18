@@ -141,6 +141,7 @@ public class FreeBoardService {
                     boardImgEntity = BoardImgEntity.builder()
                             .bimg(uuidfile)
                             .boardEntity(boardEntity)
+                            .categoryEntity2(categoryEntity.get())
                             .build();
 
                     //게시판 엔티티에 게시판 이미지 엔티티 넣어주기
@@ -217,6 +218,7 @@ public class FreeBoardService {
                      BoardImgEntity boardImgEntity = BoardImgEntity.builder()
                             .bimg(uuidfile)
                             .boardEntity(boardEntity)
+                             .categoryEntity2(boardEntity.getCategoryEntity())
                             .build();
                     bimgRepository.save(boardImgEntity);
                     boardRepository.findById(bno).get().getBoardImgEntities().add(boardImgEntity); //get을 할 수 없음 null이라

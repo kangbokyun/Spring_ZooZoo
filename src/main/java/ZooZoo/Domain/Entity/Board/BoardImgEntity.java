@@ -29,8 +29,8 @@ public class BoardImgEntity extends DateEntity {
     @JoinColumn(name="bno")
     private BoardEntity boardEntity;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name="cano")
-    private CategoryEntity categoryEntity2;*/
+    private CategoryEntity categoryEntity2;
 
 }

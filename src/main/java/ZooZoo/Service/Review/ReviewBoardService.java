@@ -92,8 +92,8 @@ public class ReviewBoardService {
         //카테고리 엔티티에 게시판 엔티티 넣어주기
         categoryEntity.get().getBoardEntities().add(boardEntity);
 
-       /* //첨부파일 폴더 생성하기 위해서
-        String path = "C:\\ReviewBoardIMG\\";
+       //첨부파일 폴더 생성하기 위해서
+        /*String path = "C:\\ReviewBoardIMG\\";
         File Folder = new File(path);
 
         // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
@@ -107,8 +107,8 @@ public class ReviewBoardService {
             }
         }else {
             System.out.println("이미 폴더가 생성되어 있습니다.");
-        }*/
-
+        }
+*/
         if (files.size() != 0) {
             for (MultipartFile temp : files) {
                 UUID uuid = UUID.randomUUID();
@@ -127,6 +127,7 @@ public class ReviewBoardService {
                     boardImgEntity = BoardImgEntity.builder()
                             .bimg(uuidfile)
                             .boardEntity(boardEntity)
+                            .categoryEntity2(categoryEntity.get())
                             .build();
 
                     //게시판 엔티티에 게시판 이미지 엔티티 넣어주기
@@ -203,6 +204,7 @@ public class ReviewBoardService {
                      BoardImgEntity boardImgEntity = BoardImgEntity.builder()
                             .bimg(uuidfile)
                             .boardEntity(boardEntity)
+                             .categoryEntity2(boardEntity.getCategoryEntity())
                             .build();
                     bimgRepository.save(boardImgEntity);
                     boardRepository.findById(bno).get().getBoardImgEntities().add(boardImgEntity); //get을 할 수 없음 null이라

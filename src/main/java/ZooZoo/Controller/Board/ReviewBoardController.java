@@ -155,8 +155,8 @@ public class ReviewBoardController {
         return "Board/Review/ReviewBoardView";
     }
 
-    /*//후기게시판 게시물 삭제
-    @GetMapping("/Board/Free/FreeBoardDelete")
+    //후기게시판 게시물 삭제
+    @GetMapping("/Board/Review/ReviewBoardDelete")
     @ResponseBody
     public int FreeBoardDelete(@RequestParam("bno") int bno){
         boolean result = reviewBoardService.deleteBoard(bno);
@@ -165,10 +165,10 @@ public class ReviewBoardController {
         }else{
             return 2;
         }
-    }*/
+    }
 
-    /*//후기게시판 게시물 수정페이지 이동
-    @GetMapping("/Board/Free/goToReviewBoardUpdate/{bno}")
+    //후기게시판 게시물 수정페이지 이동
+    @GetMapping("/Board/Review/goToReviewBoardUpdate/{bno}")
     public String goToReviewBoardUpdate(@PathVariable("bno") int bno, Model model){
         BoardEntity boardEntity = reviewBoardService.getReviewBoardView(bno);
 
@@ -191,21 +191,22 @@ public class ReviewBoardController {
         model.addAttribute("boardEntity", boardEntity);
 
         return "Board/Review/ReviewBoardUpdate";
-    }*/
+    }
 
-  /*  //후기게시판 수정 이미지 개별 삭제
+    //후기게시판 수정 이미지 개별 삭제
     @ResponseBody
     @GetMapping ("/Board/Reivew/ReviewBoardImgDelete")
     public String ReviewBoardImgDelete(@RequestParam("bno") int bno, @RequestParam("bimg") String bimg){
         boolean rs = reviewBoardService.deleteBoardImg(bno, bimg);
         if(rs) {
             return "1";
+        }else {
             return "2";
         }
-    }*/
+    }
 
 
-    /*//후기게시판 수정처리
+    //후기게시판 수정처리
     @ResponseBody
     @RequestMapping(value = {"/Board/Review/ReviewBoardUpdate"}, method = RequestMethod.POST, produces = "json/plain;charset=UTF-8")
     public String ReviewBoardUpdate(MultipartHttpServletRequest mtfRequest,
@@ -250,19 +251,19 @@ public class ReviewBoardController {
         //1 반환 (글쓰기 완료)
         return res;
 
-    }*/
+    }
 
-    /*//첨부파일 다운로드 처리
-    @GetMapping("/Board/Free/FreeBoardDownload")
-    public void filedownload(@RequestParam("bimg") String bimg, HttpServletResponse response){
+    //첨부파일 다운로드 처리
+    @GetMapping("/Board/Review/ReviewBoardDownload")
+    public void ReviewBoardDownload(@RequestParam("bimg") String bimg, HttpServletResponse response){
         reviewBoardService.freeBoardFileDown(bimg, response);
     }
-*/
 
-    /*//후기게시판 댓글 달기
+
+    //후기게시판 댓글 달기
     @ResponseBody
     @GetMapping("/Board/Review/ReviewBoardReplyWrite")
-    public int FreeBoardReplyWrite(@RequestParam("bno") int bno,
+    public int ReviewBoardReplyWrite(@RequestParam("bno") int bno,
                                    @RequestParam("frcontents") String frcontents){
         int cano = 5;
         int rs = replyService.writeReply(bno, cano, frcontents);
@@ -277,12 +278,12 @@ public class ReviewBoardController {
         }else{
             return 4; //버그 비정상
         }
-    }*/
+    }
 
- /*   //후기게시판 댓글 삭제
+  //후기게시판 댓글 삭제
     @ResponseBody
     @GetMapping("/Board/Review/ReviewBoardReplyDelete")
-    public int FreeBoardReplyDelete(@RequestParam("rno") int rno){
+    public int ReviewBoardReplyDelete(@RequestParam("rno") int rno){
         boolean rs = replyService.deleteReply(rno);
         if(rs){
             return 1;
@@ -290,15 +291,15 @@ public class ReviewBoardController {
             return 2;
         }
 
-    }*/
+    }
 
-    /*// 댓글 수정
+    // 댓글 수정
     @GetMapping("/Board/Review/ReviewBoardReplyUpdate")
     @ResponseBody
-    public String FreeBoardReplyUpdate(@RequestParam("bno") int bno, @RequestParam("newcontents") String newcontents){
+    public String ReviewBoardReplyUpdate(@RequestParam("bno") int bno, @RequestParam("newcontents") String newcontents){
         replyService.replyupdate(bno, newcontents);
         return "1";
-    }*/
+    }
 }
 
 
