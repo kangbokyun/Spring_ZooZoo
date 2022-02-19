@@ -10,7 +10,7 @@ $(document).ready(function() {
 });
 
 //게시판 지우기
-function freeboardDelete(bno){
+function reviewboardDelete(bno){
     alert("삭제버튼 눌렀을때  bno 나옴? : "+ bno);
     $.ajax({
         url: "/Board/Review/ReviewBoardDelete",
@@ -18,7 +18,7 @@ function freeboardDelete(bno){
         success: function(result){
             alert(result);
             if(result == 1){
-                location.href = "/freeboard";
+                location.href = "/ReviewBoardList";
             }else{
                 alert("오류발생");
             }
@@ -72,10 +72,10 @@ $(document).ready(function(){
     });
 
     //저장
-    $(document).on("click", "#save2", function(){
+    $(document).on("click", "#ReviewUpdateSavebtn", function(){
 
         var bno = $("#bno").val();
-        //alert(bno);
+        alert(bno);
         var formData = new FormData($("#fileForm")[0]);
         if(fileList.length > 0){
             fileList.forEach(function(f){

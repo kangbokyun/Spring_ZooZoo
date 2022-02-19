@@ -77,9 +77,9 @@
                       <img th:if="${boardEntity.boardImgEntities.size() != 0}" th:src="@{'/IMG/Board/FreeBoardIMG/'+${boardEntity.boardImgEntities.get(0).bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                       <img th:if="${boardEntity.boardImgEntities.size() == 0}" th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#333333; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                     </div>
-                    <div class="carousel-item" th:each="boardImg : ${boardEntity.boardImgEntities}">
-                      <img th:if="${#lists.size(boardImg)}!=0" th:src="@{'/IMG/Board/FreeBoardIMG/'+${boardImg.bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
-                      <img th:if="${#lists.size(boardImg)}==0" th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
+                    <div class="carousel-item " th:each="boardImg, num : ${boardEntity.boardImgEntities}" th:if="${#lists.size(boardImg)}!=0 and ${num.index} >= 1">
+                      <img th:src="@{'/IMG/Board/FreeBoardIMG/'+${boardImg.bimg}}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
+                      <img th:if="${#lists.size(boardImg)}==0"  th:src="@{/IMG/logofoot.svg}" class="d-block w-100" style="background-color:#cccccc; width:67.5vw; height:49.64994663820704vh; object-fit:contain;">
                     </div>
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -195,6 +195,7 @@
                                style="word-break:break-all;
                                border-bottom:1px solid #cccccc;"
                                th:each="replyEntities:${replyEntities}">
+                          <input type="hidden" th:id="ii+${replyEntities.rno}" value="0">
 
                             <div class="row d-flex justify-content-between">
                               <div class="col-md-5" >
@@ -203,7 +204,7 @@
                                 </span>
                               </div>
                               <div class="col-md-1">
-                                <div class="d-flex justify-content-center" th:if="${memberDTO != null} and ${memberDTO.mid == replyEntities.memberEntity2.mid}">
+                                <div class="d-flex justify-content-center" th:if="${memberDTO != null} and ${memberDTO.mno == replyEntities.memberEntity2.mno}">
                                   <div style="margin-right:8px;">
                                     <a th:id="btnrupdate+${replyEntities.getRno()}"
                                        th:onclick="rupdate([[${replyEntities.getRno()}]])" class="ReplyBtns">
@@ -227,12 +228,29 @@
                               <span  th:text="${#temporals.format( replyEntities.updateDate , 'yyyy-MM-dd HH:mm')}" style="color:gray; font-size:0.750em;"></span>
                             </div>
                             <div class="my-2">
-                              <span th:id="tdbcontents+${replyEntities.getRno()}" th:text="${replyEntities.rcontents}" ></span>
+                              <span th:id="tdbcontents+${replyEntities.rno}" th:text="${replyEntities.rcontents}" ></span>
                             </div>
-
+                            <div id="goToReReplybtn" th:if="${memberDTO != null}">
+                              <a th:id="RReplySpread+${replyEntities.rno}" th:onclick="reReplyWrite([[${replyEntities.rno}]], [[${boardEntity.bno}]], [[${memberDTO.mno}]], [[${boardEntity.categoryEntity.cano}]])">
+                                댓글
+                              </a>
+                            </div>
+                            <div class="py-2 ml-2 mt-2 mb-1" th:id="reReplyInputBox+${replyEntities.rno}" style="display: none;">
+                              <div class="row d-flex justify-content-between" >
+                                <div class="col-lg-11" style="padding:20px 20px 20px 50px;">
+                                  <textarea class="form-control" th:id="reReplyContents+${replyEntities.rno}" style="max-height:250px;" placeholder="댓글 내용을 입력해주세요."></textarea>
+                                  <textarea class="form-control" style="max-height:250px; display:none;"></textarea>
+                                </div>
+                                <div class="col-lg-1" style="padding:20px 30px 20px 0;">
+                                  <button class="form-control py-3" th:id="reReplyWbtn+${replyEntities.rno}">등록</button>
+                                  <button class="form-control" th:id="reReplyUbtn+${replyEntities.rno}" style="display:none;">등록2</button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <!-- 대댓글 -->
                       <!--댓글 끝-->
                     </div>
                   </div>

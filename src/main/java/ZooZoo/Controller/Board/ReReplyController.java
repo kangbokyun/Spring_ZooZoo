@@ -20,13 +20,17 @@ public class ReReplyController {
                             @RequestParam("bno") int bno,
                             @RequestParam("mno") int mno,
                             @RequestParam("cano") int cano,
+                            @RequestParam("reReplyContents") String reReplyContents,
                             Model model){
-        if(rno == 0 || bno == 0 || mno == 0 || cano == 0){return 0;}
-        boolean rs = reReplyService.ReReplyWrite(rno, bno, mno, cano);
-        if(rs){
-            return 1;
-        }else{
-            return 2;
+        if(rno == 0 || bno == 0 || mno == 0 || cano == 0 ){return 0;}
+        else if(reReplyContents.isEmpty() || reReplyContents == null ){return 1;}
+        else {
+            boolean rs = reReplyService.ReReplyWrite(rno, bno, mno, cano, reReplyContents);
+            if (rs) {
+                return 2;
+            } else {
+                return 3;
+            }
         }
     }
 }
