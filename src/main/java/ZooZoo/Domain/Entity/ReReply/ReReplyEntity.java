@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name="rereply")
 @Getter
 @Setter
-@ToString
+@ToString (exclude={"reReplyMemberEntity","reReplyBoardEntity", "reReplyCategoryEntity", "realReplyEntity"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -41,5 +41,5 @@ public class ReReplyEntity extends DateEntity {
 
     @ManyToOne
     @JoinColumn(name="rno")
-    private ReplyEntity reReplyReplyEntity;
+    private ReplyEntity realReplyEntity;
 }

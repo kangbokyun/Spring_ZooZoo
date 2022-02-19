@@ -13,7 +13,7 @@ public class ReReplyController {
     @Autowired
     ReReplyService reReplyService;
 
-    //대 댓글
+    //대댓글 작성하기
     @ResponseBody
     @GetMapping("/ReReply/ReReplyWrite")
     public int ReReplyWrite(@RequestParam("rno") int rno,

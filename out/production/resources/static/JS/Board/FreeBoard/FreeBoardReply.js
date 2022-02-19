@@ -62,22 +62,6 @@ function rupdate(bno){
     });
 }
 
-
-/*//대댓글 쓰기
-$("#RReplySpread"+rno).click(function(){
- alert("bno : "+ bno + " mno : " + mno + " cano : " + cano +" rno : " + rno);
-    //댓글 버튼 누르면 댓글 버튼과 스위치 값 바꾸기
-
-        document.getElementById("reReplyInputBox"+rno).style = "display:block";
-        document.getElementById("ii"+rno).value = "1";
-    }
-    //이미 한번 댓글 버튼 누른 상태에서 한번 더 누르면 댓글 버튼 원래대로 바꾸고, 스위치 값도 원래대로
-
-        document.getElementById("reReplyInputBox"+rno).style = "display:none";
-        document.getElementById("ii"+rno).value = "0";
-    }
- });*/
-
 //자유게시판 대댓글 작성하기
 function reReplyWrite(rno, bno, mno, cano){
     //ii = 0일때, 대댓글 쓰는 div 보이기
@@ -120,3 +104,8 @@ function reReplyWrite(rno, bno, mno, cano){
         alert("몰루");
     }
 }
+//자유게시판 대댓글 등록 끝
+
+//자유게시판 대댓글 수정
+
+//자유게시판 대댓글 삭제

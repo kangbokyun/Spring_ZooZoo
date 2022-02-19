@@ -12,4 +12,5 @@ public interface ReplyRepository extends JpaRepository<ReplyEntity, Integer> {
     List<ReplyEntity> findFreeReply(@Param("bno") int bno, @Param("cano") int cano);
 
 
+
 }

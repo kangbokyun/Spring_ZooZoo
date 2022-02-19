@@ -1,5 +1,6 @@
 package ZooZoo.Service.ReReply;
 
+import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardRepository;
 import ZooZoo.Domain.Entity.Category.CategoryRepository;
 import ZooZoo.Domain.Entity.Member.MemberRepository;
@@ -8,6 +9,9 @@ import ZooZoo.Domain.Entity.ReReply.ReReplyRepository;
 import ZooZoo.Domain.Entity.Reply.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReReplyService {
@@ -32,26 +36,30 @@ public class ReReplyService {
         if(rno != 0 && bno != 0 && mno != 0 && cano != 0) {
             //자유 게시판 대댓글
             if(cano == 4) {
+                Optional<BoardEntity> boardEntityOptional = boardRepository.findById(bno);
                 ReReplyEntity reReplyEnt = ReReplyEntity.builder()
                         .reReplyBoardEntity(boardRepository.findById(bno).get())
-                        .reReplyReplyEntity(replyRepository.findById(rno).get())
+                        .realReplyEntity(replyRepository.findById(rno).get())
                         .reReplyCategoryEntity(categoryRepository.findById(cano).get())
                         .reReplyMemberEntity(memberRepository.findById(mno).get())
                         .rrcontents(reReplyContents)
                         .build();
                 reReplyRepository.save(reReplyEnt);
-                System.out.println(reReplyEnt);
+                boardEntityOptional.get().getReReplyEntities().add(reReplyEnt);
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@boardEntityOptional.get()  : "+ boardEntityOptional.get());
                 return true;
             //후기 게시판 대댓글
             }else if(cano == 5){
+                Optional<BoardEntity> boardEntityOptional = boardRepository.findById(bno);
                 ReReplyEntity reReplyEnt = ReReplyEntity.builder()
                         .reReplyBoardEntity(boardRepository.findById(bno).get())
-                        .reReplyReplyEntity(replyRepository.findById(rno).get())
+                        .realReplyEntity(replyRepository.findById(rno).get())
                         .reReplyCategoryEntity(categoryRepository.findById(cano).get())
                         .reReplyMemberEntity(memberRepository.findById(mno).get())
                         .rrcontents(reReplyContents)
                         .build();
                 reReplyRepository.save(reReplyEnt);
+                boardEntityOptional.get().getReReplyEntities().add(reReplyEnt);
                 System.out.println(reReplyEnt);
                 return true;
             }else{
@@ -62,6 +70,13 @@ public class ReReplyService {
         }
     }
 
+
     //대댓글 출력
+    public List<ReReplyEntity> getAllReReplys(int bno, int cano) {
+        List<ReReplyEntity> reReplyEnt = reReplyRepository.findReReply(bno, cano);
+        System.out.println("@@@@@ reReplyEnt : " + reReplyEnt);
+        return reReplyEnt;
+    }
+
 
 }

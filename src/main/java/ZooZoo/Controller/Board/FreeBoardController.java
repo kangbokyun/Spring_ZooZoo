@@ -7,10 +7,12 @@ import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardImgEntity;
 import ZooZoo.Domain.Entity.Board.BoardRepository;
 import ZooZoo.Domain.Entity.Category.CategoryEntity;
+import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyRepository;
 import ZooZoo.Service.BoardLike.BoardLikeService;
 import ZooZoo.Service.Free.FreeBoardService;
+import ZooZoo.Service.ReReply.ReReplyService;
 import ZooZoo.Service.Reply.ReplyService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -52,6 +54,9 @@ public class FreeBoardController {
 
     @Autowired
     BoardLikeService boardLikeService;
+
+    @Autowired
+    ReReplyService reReplyService;
 
     @Autowired
     BoardRepository boardRepository;
@@ -140,16 +145,21 @@ public class FreeBoardController {
     public String goToFreeBoardView(@PathVariable("bno") int bno, Model model) {
         HttpSession session =  request.getSession();
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
+
         ArrayList<String> bimglist = new ArrayList<>();
+        List<ReReplyEntity> reReplyList = new ArrayList<>();
         try {
             BoardEntity boardEntity = freeBoardService.getFreeBoardView(bno);
             for(int i =0; i<boardEntity.getBoardImgEntities().size(); i++){
                 bimglist.add(boardEntity.getBoardImgEntities().get(i).getBimg());
             }
             List<ReplyEntity> replyEntities = replyService.getAllReplys(bno, boardEntity.getCategoryEntity().getCano());
+            List<ReReplyEntity> reReplyEntities = reReplyService.getAllReReplys(bno, boardEntity.getCategoryEntity().getCano());
+
             model.addAttribute("bimglist",bimglist);
             model.addAttribute("boardEntity", boardEntity);
             model.addAttribute("replyEntities",replyEntities);
+            model.addAttribute("reReplyEntities", reReplyEntities);
             int likeCountNo = boardLikeService.likeCount(bno);
             model.addAttribute("likeCountNo",likeCountNo);
         } catch(Exception e){
@@ -164,7 +174,6 @@ public class FreeBoardController {
             System.out.println("좋아요 되었습니까?? : " + rs);
             model.addAttribute("rs",rs);
         }
-
 
         model.addAttribute("memberDTO",memberDTO);
         return "Board/Free/FreeBoardView";
