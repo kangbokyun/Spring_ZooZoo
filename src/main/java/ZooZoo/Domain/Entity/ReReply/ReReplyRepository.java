@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ReReplyRepository extends JpaRepository<ReReplyEntity, Integer> {
 
-    @Query(nativeQuery = true, value = "select * from rereply where bno = :bno and cano = :cano order by update_date desc")
-    List<ReReplyEntity> findReReply(@Param("bno") int bno, @Param("cano") int cano);
+    @Query(nativeQuery = true, value = "select * from rereply where bno = :bno and cano = :cano and rno = :rno")
+    List<ReReplyEntity> findReReply(@Param("bno") int bno, @Param("cano") int cano, @Param("rno") int rno);
 }

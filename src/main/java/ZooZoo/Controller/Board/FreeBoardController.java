@@ -147,19 +147,24 @@ public class FreeBoardController {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
 
         ArrayList<String> bimglist = new ArrayList<>();
-        List<ReReplyEntity> reReplyList = new ArrayList<>();
         try {
+            List<ReReplyEntity> reReplyList = new ArrayList<>();
             BoardEntity boardEntity = freeBoardService.getFreeBoardView(bno);
-            for(int i =0; i<boardEntity.getBoardImgEntities().size(); i++){
-                bimglist.add(boardEntity.getBoardImgEntities().get(i).getBimg());
-            }
-            List<ReplyEntity> replyEntities = replyService.getAllReplys(bno, boardEntity.getCategoryEntity().getCano());
-            List<ReReplyEntity> reReplyEntities = reReplyService.getAllReReplys(bno, boardEntity.getCategoryEntity().getCano());
-
-            model.addAttribute("bimglist",bimglist);
             model.addAttribute("boardEntity", boardEntity);
+            List<ReplyEntity> replyEntities = replyService.getAllReplys(bno, boardEntity.getCategoryEntity().getCano());
             model.addAttribute("replyEntities",replyEntities);
-            model.addAttribute("reReplyEntities", reReplyEntities);
+            //리플 엔티티에서 리리플(대댓글) 엔티티만 가져와서 리스트에 담아야됨
+            if(replyEntities.size() > 0) {
+                for (int i = 0; i < replyEntities.size(); i++) {
+                    if(!replyEntities.get(i).getReReplyEntities().isEmpty()) {
+                        System.out.println("@@@@리플 엔티티의 " + i + "번째 리리플 엔티티 : " +
+                                replyEntities.get(i).getReReplyEntities());
+                        reReplyList.get(i).setRealReplyEntity((ReplyEntity) replyEntities.get(i).getReReplyEntities());
+                    }
+                }
+            }
+
+            //model.addAttribute("reReplyList", reReplyList);
             int likeCountNo = boardLikeService.likeCount(bno);
             model.addAttribute("likeCountNo",likeCountNo);
         } catch(Exception e){

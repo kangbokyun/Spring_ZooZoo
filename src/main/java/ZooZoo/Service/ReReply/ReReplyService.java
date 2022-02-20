@@ -72,10 +72,21 @@ public class ReReplyService {
 
 
     //대댓글 출력
-    public List<ReReplyEntity> getAllReReplys(int bno, int cano) {
-        List<ReReplyEntity> reReplyEnt = reReplyRepository.findReReply(bno, cano);
-        System.out.println("@@@@@ reReplyEnt : " + reReplyEnt);
-        return reReplyEnt;
+    public List<ReReplyEntity> getAllReReplys(int bno, int cano, int rno) {
+        System.out.println("@@@@@@@@@@@@@@@@ : "+rno);
+        try{
+            List<ReReplyEntity> reReplyEnt = reReplyRepository.findReReply(bno, cano, rno);
+            System.out.println(reReplyEnt);
+            if(reReplyEnt != null) {
+                return reReplyEnt;
+            }else{
+                return null;
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

@@ -194,8 +194,8 @@
                           <div  class="py-2 mb-4"
                                style="word-break:break-all;
                                border-bottom:1px solid #cccccc;"
-                               th:each="replyEntities:${replyEntities}">
-                          <input type="hidden" th:id="ii+${replyEntities.rno}" value="0">
+                               th:each="replyEntities, num :${replyEntities}">
+                            <input type="hidden" th:id="ii+${replyEntities.rno}" value="0">
 
                             <div class="row d-flex justify-content-between">
                               <div class="col-md-5" >
@@ -237,13 +237,13 @@
                             </div>
 
                             <!--대댓글 출력 div-->
-                            <div class="py-2 ml-2 mt-2 mb-1" style="padding-left:20px; border-top:1px solid #cccccc;" th:each="reReplyEntities:${reReplyEntities}">
+                            <div class="py-2 ml-2 mt-2 mb-1" style="padding-left:20px; border-top:1px solid #cccccc;" >
                               <div class="row d-flex justify-content-between">
                                 <div class="col-md-5" >
                                   <span>
                                     <i class="material-icons" aria-hidden="true" >subdirectory_arrow_right</i>
                                   </span>
-                                  <span  th:text="${reReplyEntities.reReplyMemberEntity.mid}"
+                                  <span th:if="${num.index} >= 0"  th:text="${replyEntities.reReplyEntities}"
                                          style="font-weight:bold; font-size:1.000em;">
                                   </span>
                                 </div>
@@ -273,9 +273,9 @@
                               </div>
                               <div class="my-2" style="padding-left:28px;">
                                  <span class="pr-2" th:text="${replyEntities.memberEntity2.mid}"
-                                        style="color:#cccccc;">
+                                        style="color:#cccccc;"> <!--대댓글 아이디-->
                                   </span >
-                                <span th:id="tdbcontents+${replyEntities.rno}" th:text="${replyEntities.rcontents}" ></span>
+                                <span th:id="tdbcontents+${replyEntities.rno}" th:text="${replyEntities.reReplyEntities}"></span> <!--대댓글 내용-->
                               </div>
                               <div style="border-bottom:1px solid #cccccc;"></div>
                             </div>
