@@ -71,7 +71,7 @@ public class ReReplyService {
     }
 
 
-    //대댓글 출력
+  /*  //대댓글 출력
     public List<ReReplyEntity> getAllReReplys(int bno, int cano, int rno) {
         System.out.println("@@@@@@@@@@@@@@@@ : "+rno);
         try{
@@ -88,6 +88,6 @@ public class ReReplyService {
         }
         return null;
     }
-
+*/
 
 }

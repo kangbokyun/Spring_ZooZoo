@@ -237,13 +237,13 @@
                             </div>
 
                             <!--대댓글 출력 div-->
-                            <div class="py-2 ml-2 mt-2 mb-1" style="padding-left:20px; border-top:1px solid #cccccc;" >
+                            <div class="py-2 ml-2 mt-2 mb-1" style="padding-left:20px; border-top:1px solid #cccccc;" th:each="reReplyDTOList:${reReplyDTOList}">
                               <div class="row d-flex justify-content-between">
                                 <div class="col-md-5" >
                                   <span>
                                     <i class="material-icons" aria-hidden="true" >subdirectory_arrow_right</i>
                                   </span>
-                                  <span th:if="${num.index} >= 0"  th:text="${replyEntities.reReplyEntities}"
+                                  <span th:text="${reReplyDTOList.rrcontents}"
                                          style="font-weight:bold; font-size:1.000em;">
                                   </span>
                                 </div>
@@ -275,11 +275,12 @@
                                  <span class="pr-2" th:text="${replyEntities.memberEntity2.mid}"
                                         style="color:#cccccc;"> <!--대댓글 아이디-->
                                   </span >
-                                <span th:id="tdbcontents+${replyEntities.rno}" th:text="${replyEntities.reReplyEntities}"></span> <!--대댓글 내용-->
+                                <span th:id="tdbcontents+${replyEntities.rno}" th:text="${re}"></span> <!--대댓글 내용-->
                               </div>
                               <div style="border-bottom:1px solid #cccccc;"></div>
                             </div>
                             <!--대댓글 출력 div 끝-->
+
                             <!-- 대댓글 등록하기 div-->
                             <div class="py-2 ml-2 mt-2 mb-1" th:id="reReplyInputBox+${replyEntities.rno}" style="display:none; ">
                               <div class="row d-flex justify-content-between" >

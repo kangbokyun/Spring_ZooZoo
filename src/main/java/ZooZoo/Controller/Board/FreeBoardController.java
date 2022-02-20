@@ -1,13 +1,17 @@
 package ZooZoo.Controller.Board;
 
 import ZooZoo.Domain.DTO.Board.BoardDTO;
+import ZooZoo.Domain.DTO.Board.ReReplyDTO;
 import ZooZoo.Domain.DTO.Category.CategoryDTO;
 import ZooZoo.Domain.DTO.Member.MemberDTO;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardImgEntity;
 import ZooZoo.Domain.Entity.Board.BoardRepository;
 import ZooZoo.Domain.Entity.Category.CategoryEntity;
+import ZooZoo.Domain.Entity.Member.MemberEntity;
+import ZooZoo.Domain.Entity.Member.MemberRepository;
 import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
+import ZooZoo.Domain.Entity.ReReply.ReReplyRepository;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyRepository;
 import ZooZoo.Service.BoardLike.BoardLikeService;
@@ -60,6 +64,12 @@ public class FreeBoardController {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
+
+    @Autowired
+    ReReplyRepository reReplyRepository;
 
     // 자유게시판으로 (페이징, 검색)
     @GetMapping("/freeboard")
@@ -145,26 +155,38 @@ public class FreeBoardController {
     public String goToFreeBoardView(@PathVariable("bno") int bno, Model model) {
         HttpSession session =  request.getSession();
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
-
-        ArrayList<String> bimglist = new ArrayList<>();
         try {
-            List<ReReplyEntity> reReplyList = new ArrayList<>();
+            List<ReReplyDTO> reReplyDTOList = new ArrayList<>();
             BoardEntity boardEntity = freeBoardService.getFreeBoardView(bno);
             model.addAttribute("boardEntity", boardEntity);
             List<ReplyEntity> replyEntities = replyService.getAllReplys(bno, boardEntity.getCategoryEntity().getCano());
             model.addAttribute("replyEntities",replyEntities);
+
+
             //리플 엔티티에서 리리플(대댓글) 엔티티만 가져와서 리스트에 담아야됨
-            if(replyEntities.size() > 0) {
-                for (int i = 0; i < replyEntities.size(); i++) {
-                    if(!replyEntities.get(i).getReReplyEntities().isEmpty()) {
-                        System.out.println("@@@@리플 엔티티의 " + i + "번째 리리플 엔티티 : " +
-                                replyEntities.get(i).getReReplyEntities());
-                        reReplyList.get(i).setRealReplyEntity((ReplyEntity) replyEntities.get(i).getReReplyEntities());
+
+            List<ReReplyEntity> reReplyEntities = reReplyRepository.findAll();
+            if(reReplyEntities.size() != 0){
+
+
+                for(int i = 0; i<reReplyEntities.size(); i++){
+                    if(reReplyEntities.get(i).getReReplyCategoryEntity().getCano() == 4
+                            && boardEntity.getReplyEntities().get(i).getRno() == reReplyEntities.get(i).getRrno()){
+
+                        Optional<MemberEntity> mid = memberRepository.findById(boardEntity.getMemberEntity().getMno());
+
+                        String rdate = reReplyEntities.get(i).getUpdateDate().toString();
+                        ReReplyDTO reReplyDTO = new ReReplyDTO();
+                        reReplyDTO.setRrcontents(reReplyEntities.get(i).getRrcontents());
+                        reReplyDTO.setRrwriter(mid.get().getMid());
+                        reReplyDTO.setBcreateddate(rdate);
+                        reReplyDTO.setRrno(reReplyEntities.get(i).getRrno());
+                        reReplyDTOList.add(reReplyDTO);
                     }
                 }
             }
 
-            //model.addAttribute("reReplyList", reReplyList);
+            model.addAttribute("reReplyDTOList",reReplyDTOList);
             int likeCountNo = boardLikeService.likeCount(bno);
             model.addAttribute("likeCountNo",likeCountNo);
         } catch(Exception e){
