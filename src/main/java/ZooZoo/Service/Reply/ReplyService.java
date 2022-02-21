@@ -3,6 +3,7 @@ package ZooZoo.Service.Reply;
 import ZooZoo.Domain.DTO.Member.MemberDTO;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardRepository;
+import ZooZoo.Domain.Entity.Category.CategoryRepository;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
 import ZooZoo.Domain.Entity.Member.MemberRepository;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
@@ -21,15 +22,16 @@ import java.util.Optional;
 public class ReplyService {
 
     @Autowired
-    BoardRepository boardRepository;
+    HttpServletRequest request;
 
+    @Autowired
+    BoardRepository boardRepository;
     @Autowired
     ReplyRepository replyRepository;
     @Autowired
     MemberRepository memberRepository;
-
     @Autowired
-    HttpServletRequest request;
+    CategoryRepository categoryRepository;
 
     public int writeReply(int bno, int cano, String frcontents) {
 
@@ -44,6 +46,7 @@ public class ReplyService {
                 .rcontents(frcontents)
                 .memberEntity2(memberEntity.get())
                 .categoryEntity2(boardEntity.get().getCategoryEntity())
+                .rindex(null)
                 .build();
         replyRepository.save(replyEntity);
         boardEntity.get().getReplyEntities().add(replyEntity);
@@ -54,8 +57,9 @@ public class ReplyService {
         List<ReplyEntity>replyEntity = new ArrayList<>();
         try{
             replyEntity = replyRepository.findFreeReply(bno, cano);
-        }catch (Exception e) {
 
+        }catch (Exception e) {
+            e.printStackTrace();
         }
         return replyEntity;
     }
@@ -95,4 +99,46 @@ public class ReplyService {
         replyEntity.setRcontents(newcontents);
         return true;
     }
+
+    //대댓글
+    //대댓글 쓰기(저장)
+    public boolean ReReplyWrite(int rno, int bno, int mno, int cano, String reReplyContents, Integer rindex) {
+        if(rno != 0 && bno != 0 && mno != 0 && cano != 0) {
+            //자유 게시판 대댓글
+            if(cano == 4) {
+                Optional<BoardEntity> boardEntityOptional = boardRepository.findById(bno);
+                ReplyEntity reReplyEnt = ReplyEntity.builder()
+                        .boardEntity2(boardRepository.findById(bno).get())
+                        .categoryEntity2(categoryRepository.findById(cano).get())
+                        .memberEntity2(memberRepository.findById(mno).get())
+                        .rcontents(reReplyContents)
+                        .rindex(rindex)
+                        .build();
+                replyRepository.save(reReplyEnt);
+                boardEntityOptional.get().getReplyEntities().add(reReplyEnt);
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@boardEntityOptional.get()  : "+ boardEntityOptional.get());
+                return true;
+                //후기 게시판 대댓글
+            }else if(cano == 5){
+                Optional<BoardEntity> boardEntityOptional = boardRepository.findById(bno);
+                ReplyEntity reReplyEnt = ReplyEntity.builder()
+                        .boardEntity2(boardRepository.findById(bno).get())
+                        .categoryEntity2(categoryRepository.findById(cano).get())
+                        .memberEntity2(memberRepository.findById(mno).get())
+                        .rcontents(reReplyContents)
+                        .rindex(rindex)
+                        .build();
+                replyRepository.save(reReplyEnt);
+                boardEntityOptional.get().getReplyEntities().add(reReplyEnt);
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@boardEntityOptional.get()  : "+ boardEntityOptional.get());
+                System.out.println(reReplyEnt);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }

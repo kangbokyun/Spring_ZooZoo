@@ -3,7 +3,6 @@ package ZooZoo.Domain.Entity.Category;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Board.BoardImgEntity;
 import ZooZoo.Domain.Entity.BoardLike.BoardLikeEntity;
-import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import lombok.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name="category")
-@ToString (exclude={"boardEntities","replyEntities", "boardLikeEntities", "reReplyCategoryEntity"})
+@ToString (exclude={"boardEntities","replyEntities", "boardLikeEntities"})
 @Builder
 @Getter
 @Setter
@@ -39,7 +38,4 @@ public class CategoryEntity {
     @OneToMany(mappedBy="categoryBLikeEntity", cascade = CascadeType.ALL)
     private List<BoardLikeEntity> boardLikeEntities = new ArrayList<>();
 
-    //대댓글
-    @OneToMany(mappedBy="reReplyCategoryEntity", cascade = CascadeType.ALL)
-    private List<ReReplyEntity> reReplyEntities= new ArrayList<>();
 }

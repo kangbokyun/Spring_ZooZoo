@@ -3,7 +3,6 @@ package ZooZoo.Domain.Entity.Member;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.BoardLike.BoardLikeEntity;
 import ZooZoo.Domain.Entity.DateEntity;
-import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import lombok.*;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Table(name = "member")
-@Getter @Setter @ToString (exclude={"boardEntities","replyEntities", "boardLikeEntities", "reReplyEntities"}) @Builder
+@Getter @Setter @ToString (exclude={"boardEntities","replyEntities", "boardLikeEntities"}) @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class MemberEntity extends DateEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +41,4 @@ public class MemberEntity extends DateEntity {
     @OneToMany(mappedBy="memberBLikeEntity", cascade = CascadeType.ALL)
     private List<BoardLikeEntity> boardLikeEntities = new ArrayList<>();
 
-    //대댓글 엔티티 매핑
-    @OneToMany(mappedBy="reReplyMemberEntity", cascade = CascadeType.ALL)
-    private List<ReReplyEntity> reReplyEntities = new ArrayList<>();
 }

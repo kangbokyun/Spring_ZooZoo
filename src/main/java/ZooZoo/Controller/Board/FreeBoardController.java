@@ -10,13 +10,10 @@ import ZooZoo.Domain.Entity.Board.BoardRepository;
 import ZooZoo.Domain.Entity.Category.CategoryEntity;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
 import ZooZoo.Domain.Entity.Member.MemberRepository;
-import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
-import ZooZoo.Domain.Entity.ReReply.ReReplyRepository;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyRepository;
 import ZooZoo.Service.BoardLike.BoardLikeService;
 import ZooZoo.Service.Free.FreeBoardService;
-import ZooZoo.Service.ReReply.ReReplyService;
 import ZooZoo.Service.Reply.ReplyService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -60,16 +57,10 @@ public class FreeBoardController {
     BoardLikeService boardLikeService;
 
     @Autowired
-    ReReplyService reReplyService;
-
-    @Autowired
     BoardRepository boardRepository;
 
     @Autowired
     MemberRepository memberRepository;
-
-    @Autowired
-    ReReplyRepository reReplyRepository;
 
     // 자유게시판으로 (페이징, 검색)
     @GetMapping("/freeboard")
@@ -155,38 +146,18 @@ public class FreeBoardController {
     public String goToFreeBoardView(@PathVariable("bno") int bno, Model model) {
         HttpSession session =  request.getSession();
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
+
         try {
             List<ReReplyDTO> reReplyDTOList = new ArrayList<>();
             BoardEntity boardEntity = freeBoardService.getFreeBoardView(bno);
             model.addAttribute("boardEntity", boardEntity);
             List<ReplyEntity> replyEntities = replyService.getAllReplys(bno, boardEntity.getCategoryEntity().getCano());
-            model.addAttribute("replyEntities",replyEntities);
-
-
-            //리플 엔티티에서 리리플(대댓글) 엔티티만 가져와서 리스트에 담아야됨
-
-            List<ReReplyEntity> reReplyEntities = reReplyRepository.findAll();
-            if(reReplyEntities.size() != 0){
-
-
-                for(int i = 0; i<reReplyEntities.size(); i++){
-                    if(reReplyEntities.get(i).getReReplyCategoryEntity().getCano() == 4
-                            && boardEntity.getReplyEntities().get(i).getRno() == reReplyEntities.get(i).getRrno()){
-
-                        Optional<MemberEntity> mid = memberRepository.findById(boardEntity.getMemberEntity().getMno());
-
-                        String rdate = reReplyEntities.get(i).getUpdateDate().toString();
-                        ReReplyDTO reReplyDTO = new ReReplyDTO();
-                        reReplyDTO.setRrcontents(reReplyEntities.get(i).getRrcontents());
-                        reReplyDTO.setRrwriter(mid.get().getMid());
-                        reReplyDTO.setBcreateddate(rdate);
-                        reReplyDTO.setRrno(reReplyEntities.get(i).getRrno());
-                        reReplyDTOList.add(reReplyDTO);
-                    }
+            if(!replyEntities.isEmpty()){
+                for(int i=0; i<replyEntities.size(); i++){
+                    model.addAttribute("replyEntities",replyEntities);
                 }
             }
 
-            model.addAttribute("reReplyDTOList",reReplyDTOList);
             int likeCountNo = boardLikeService.likeCount(bno);
             model.addAttribute("likeCountNo",likeCountNo);
         } catch(Exception e){
@@ -328,6 +299,28 @@ public class FreeBoardController {
             return 3; //정상
         }else{
             return 4; //버그 비정상
+        }
+    }
+
+    //대댓글 작성하기
+    @ResponseBody
+    @GetMapping("/ReReply/ReReplyWrite")
+    public int ReReplyWrite(@RequestParam("rno") int rno,
+                            @RequestParam("bno") int bno,
+                            @RequestParam("mno") int mno,
+                            @RequestParam("cano") int cano,
+                            @RequestParam("reReplyContents") String reReplyContents,
+                            Model model){
+        if(rno == 0 || bno == 0 || mno == 0 || cano == 0 ){return 0;}
+        else if(reReplyContents.isEmpty() || reReplyContents == null ){return 1;}
+        else {
+            Integer rindex = 1;
+            boolean rs = replyService.ReReplyWrite(rno, bno, mno, cano, reReplyContents, rindex);
+            if (rs) {
+                return 2;
+            } else {
+                return 3;
+            }
         }
     }
 

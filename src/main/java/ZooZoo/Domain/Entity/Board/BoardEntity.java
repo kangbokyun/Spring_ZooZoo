@@ -4,7 +4,6 @@ import ZooZoo.Domain.Entity.BoardLike.BoardLikeEntity;
 import ZooZoo.Domain.Entity.Category.CategoryEntity;
 import ZooZoo.Domain.Entity.DateEntity;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
-import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
 import lombok.*;
 
@@ -19,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="board")
-@ToString (exclude={"memberEntity","categoryEntity","boardImgEntities", "replyEntities", "boardLikeEntities", "reReplyEntities"})
+@ToString (exclude={"memberEntity","categoryEntity","boardImgEntities", "replyEntities", "boardLikeEntities"})
 public class BoardEntity extends DateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,7 +67,4 @@ public class BoardEntity extends DateEntity {
     @OneToMany(mappedBy="boardBLikeEntity", cascade = CascadeType.ALL)
     private List<BoardLikeEntity> boardLikeEntities = new ArrayList<>();
 
-    //대댓글
-    @OneToMany(mappedBy="reReplyMemberEntity", cascade = CascadeType.ALL)
-    private List<ReReplyEntity> reReplyEntities = new ArrayList<>();
 }

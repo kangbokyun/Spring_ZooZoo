@@ -12,5 +12,6 @@ public interface ReplyRepository extends JpaRepository<ReplyEntity, Integer> {
     List<ReplyEntity> findFreeReply(@Param("bno") int bno, @Param("cano") int cano);
 
 
-
+    @Query(nativeQuery = true, value = "select * from rereply where bno = :bno and cano = :cano and rindex = :rindex")
+    List<ReplyEntity> findReReply(@Param("bno") int bno, @Param("cano") int cano, @Param("rindex") int rindex);
 }

@@ -4,7 +4,6 @@ import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Category.CategoryEntity;
 import ZooZoo.Domain.Entity.DateEntity;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
-import ZooZoo.Domain.Entity.ReReply.ReReplyEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Table(name="reply")
-@Getter @Setter @ToString (exclude={"boardEntity2", "memberEntity2", "categoryEntity2", "reReplyEntities"})
+@Getter @Setter @ToString (exclude={"boardEntity2", "memberEntity2", "categoryEntity2"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,6 +22,10 @@ public class ReplyEntity extends DateEntity {
 
     @Column(name="rcontents", length=1000)
     private String rcontents;
+
+    //댓글 대댓글 여부
+    @Column
+    private Integer rindex;
 
     //멤버 엔티티 매핑
     @ManyToOne
@@ -39,8 +42,6 @@ public class ReplyEntity extends DateEntity {
     @JoinColumn(name= "cano")
     private CategoryEntity categoryEntity2;
 
-    //대댓글 엔티티 매핑
-    @OneToMany(mappedBy="realReplyEntity", cascade = CascadeType.ALL)
-    private List<ReReplyEntity> reReplyEntities = new ArrayList<>();
+
 
 }
