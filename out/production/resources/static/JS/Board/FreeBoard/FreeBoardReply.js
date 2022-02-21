@@ -69,7 +69,6 @@ function reReplyWrite(rno, bno, mno, cano){
     if(document.getElementById("ii"+rno).value == "0"){
          element.style.cssText = "display:block; border-top:1px solid #cccccc";
          document.getElementById("ii"+rno).value = "1";
-         //alert("누르고 나서 ii : "+document.getElementById("ii"+rno).value);
          $("#reReplyWbtn"+rno).click(function(){
              var reReplyContents = document.getElementById("reReplyContents"+rno).value;
              alert(rno+"번째 댓글의 대댓글 내용 : " +reReplyContents);
@@ -98,6 +97,7 @@ function reReplyWrite(rno, bno, mno, cano){
      //답글 버튼 한번 더 누르면 대댓글 쓰는 div 숨기기
     }else if(document.getElementById("ii"+rno).value == "1"){
         element.style = "display:none";
+
         document.getElementById("ii"+rno).value = "0";
         alert("한번 더 누르고 나서 ii : "+document.getElementById("ii"+rno).value);
     }else{
@@ -106,6 +106,3 @@ function reReplyWrite(rno, bno, mno, cano){
 }
 //자유게시판 대댓글 등록 끝
 
-//자유게시판 대댓글 수정
-
-//자유게시판 대댓글 삭제
