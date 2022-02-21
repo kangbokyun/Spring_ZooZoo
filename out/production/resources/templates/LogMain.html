@@ -96,13 +96,17 @@
                 </div>
             </div>
         </div>
-        <div class="mainBoard col-md-5 offset-md-2">
+        <div class="mainBoard col-md-6">
             <!-- 유기동물공고 -->
             <div class="animal board">
                 <h1 style="display:none">유기동물공고영역</h1>
-                <div class="boardTit">
-                    <h3>유기동물 공고</h3>
-                    <a th:href="@{/LossBoardNotice}" class="moreBtn" title="유기동물공고 더 많이 보기">유기동물공고 더 많이 보기</a>
+                <div class="boardTit d-flex justify-content-between mb-3">
+                    <div>
+                        <h3>유기동물 공고</h3>
+                    </div>
+                    <div>
+                        <a th:href="@{/LossBoardNotice}" class="moreBtn" title="유기동물공고 더 많이 보기">유기동물공고 더 많이 보기</a>
+                    </div>
                 </div>
 
                 <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel">

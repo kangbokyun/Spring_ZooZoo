@@ -210,8 +210,15 @@ li { list-style:none; }
 
 .mainBoard .board {
     background-color: #ffffff;
-    height: 200px;
+    height: 220px;
     padding: 14px 20px;
     margin-top: 20px;
     position: relative;
+}
+
+.moreBtn:link {
+    text-decoration: none;
+    background-image: linear-gradient(white -1000%, currentcolor 2000%);
+    background-position: 0 0.95em;
+    background-repeat: repeat-x;
 }
