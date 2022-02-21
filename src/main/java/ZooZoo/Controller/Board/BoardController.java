@@ -381,11 +381,17 @@ public class BoardController {
         }
 
 
+//        // API 총 데이터 (약 11000개)
+//        ArrayList<LossDTO> parses = lossService.gettot(); // 필터링 안됨
+//        ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
+//        Pagination1 pagination = new Pagination1(parses.size(), page);
+
+        // API 1회 호출분 (1000개)
         ArrayList<LossDTO> parses = lossService.losslist(sex, kind, city, state); // 필터링 게시물
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
-
         Pagination1 pagination = new Pagination1(parses.size(), page);
 
+        // API 1호
         model.addAttribute("parsesPage", parsesPage);
         model.addAttribute("pagination", pagination);
         return "Board/Loss/LossBoardlist";
@@ -413,7 +419,9 @@ public class BoardController {
 
 
         ArrayList<LossDTO> parses = lossService.lossnoticelist(sex, kind, city, state); // 필터링 게시물
+
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
+
 
         Pagination1 pagination = new Pagination1(parses.size(), page);
 

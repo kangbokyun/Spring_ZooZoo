@@ -182,13 +182,11 @@
                                     class="material-icons text-info mr-2">assignment</i>내가 쓴 댓글</h6>
                             <table>
                                 <thead>
-                                    <th>제목</th>
                                     <th>내용</th>
                                     <th>작성일</th>
                                 </thead>
                                 <tbody th:each="replyEntities : ${replyEntities}">
-                                    <td th:text="${replyEntities.getBtitle()}">제목</td>
-                                    <td th:text="${replyEntities.getBcontents()}">내용</td>
+                                    <td th:if=${replyEntities.cano} th:text="${replyEntities.getBcontents()}">내용</td>
                                     <td th:text="${#temporals.format( replyEntities.createdDate , 'yyyy-MM-dd HH:mm:ss')}">
                                         작성일
                                     </td>
