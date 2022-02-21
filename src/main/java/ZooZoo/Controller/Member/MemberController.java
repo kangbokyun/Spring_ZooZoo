@@ -1,6 +1,7 @@
 package ZooZoo.Controller.Member;
 
 import ZooZoo.Domain.DTO.Board.LossDTO;
+import ZooZoo.Domain.DTO.Board.ReplyDTO;
 import ZooZoo.Domain.DTO.Member.MemberDTO;
 import ZooZoo.Domain.Entity.Board.BoardEntity;
 import ZooZoo.Domain.Entity.Reply.ReplyEntity;
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MemberController {
@@ -32,12 +32,17 @@ public class MemberController {
     @GetMapping("/")
     public String goToMain(Model model) {
         HttpSession session = request.getSession();
-        ArrayList<LossDTO> lossDTOS = lossService.getlossnotice();
+        ArrayList<LossDTO> lossDTOS = lossService.totlossnotice();
+        ArrayList<LossDTO> getlist = new ArrayList<>();
+        Collections.shuffle(lossDTOS);
+        getlist.add(lossDTOS.get(0));
+        getlist.add(lossDTOS.get(1));
+        getlist.add(lossDTOS.get(2));
 
         if (session.getAttribute("loginDTO") != null) {
             return "LogMain";
         } else {
-            model.addAttribute("lossDTOS",lossDTOS);
+            model.addAttribute("lossDTOS",getlist);
             return "Main";
         }
     }
@@ -80,17 +85,18 @@ public class MemberController {
         MemberDTO loginDTO = (MemberDTO) session.getAttribute("loginDTO");
         // 회원정보 가져오기
         MemberDTO memberDTO = memberService.getmemberDto(loginDTO.getMno());
-        System.out.println("mno : " + loginDTO.getMno());
+
         // 게시물 수 가져오기
         int bcount = memberService.countboard(loginDTO.getMno());
         // 댓글 수 가져오기
         int rcount = memberService.countreply(loginDTO.getMno());
 
-        // 내가 쓴 글 가져오기
-//        List<BoardEntity> boardEntities = memberService.getmyboard(loginDTO.getMno());
-        // 내가 쓴 댓글 가져오기
-        List<BoardEntity> boardEntities = memberService.getmybreply(loginDTO.getMno());
-        List<ReplyEntity> replyEntities = memberService.getmyreply(loginDTO.getMno());
+        // 게시글 전체 가져오기
+        List<BoardEntity> boardEntities = memberService.getmyboard(loginDTO.getMno());
+
+        // 댓글 가져오기
+        List<ReplyDTO> totreply = memberService.getmyreply(loginDTO.getMno());
+
 
         // html로 전달
         model.addAttribute("loginDTO", loginDTO);
@@ -98,7 +104,7 @@ public class MemberController {
         model.addAttribute("bcount", bcount);
         model.addAttribute("rcount", rcount);
         model.addAttribute("boardEntities", boardEntities);
-        model.addAttribute("replyEntities", replyEntities);
+        model.addAttribute("totreply", totreply);
 
         return "Member/Myinfo";
     }

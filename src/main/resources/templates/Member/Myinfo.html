@@ -27,7 +27,7 @@
         <div class="row gutters-sm">
             <div class="col-md-8">
                 <div class="row">
-                    <div class="col-9 my-4">
+                    <div class="col-9 my-3">
                         <div class="card card-profile mt-4">
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-12 mt-n5">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-3 p-2">
+                <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
@@ -151,47 +151,52 @@
 
             <div class="col-sm-4 mb-3">
                 <!-- 내가 쓴 글 -->
-                <div class="mb-3" style="height:45%;">
+                <div class="my-3">
                     <div class="card">
                         <div class="card-body">
                             <h6 class="d-flex align-items-center mb-3"><i
                                     class="material-icons text-info mr-2">assignment</i>내가 쓴 글</h6>
-                            <table>
-                                <tr>
-                                    <th>제목</th>
-                                    <th>내용</th>
+                            <div style="height:260px; overflow:auto">
+                                <table style="overflow-y: hidden;">
+                                    <thead>
+                                    <th width="65%">제목</th>
                                     <th>작성일</th>
-                                </tr>
-                                <tr th:each="boardEntities : ${boardEntities}">
-                                    <td th:text="${boardEntities.getBtitle()}">제목</td>
-                                    <td th:text="${boardEntities.getBcontents()}">내용</td>
-                                    <td th:text="${#temporals.format( boardEntities.createdDate , 'yyyy-MM-dd HH:mm:ss')}">
+                                    </thead>
+                                    <tbody th:each="boardEntities : ${boardEntities}">
+                                    <td th:if="${boardEntities.getCategoryEntity().getCano() == 4 || boardEntities.getCategoryEntity().getCano() == 5}"
+                                        th:text="${boardEntities.getBtitle()}">
+                                        제목
+                                    </td>
+                                    <td th:if="${boardEntities.getCategoryEntity().getCano() == 4 || boardEntities.getCategoryEntity().getCano() == 5}"
+                                        th:text="${#temporals.format( boardEntities.createdDate , 'yyyy-MM-dd')}">
                                         작성일
                                     </td>
-                                </tr>
-
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- 내가 쓴 댓글 -->
-                <div class="mb-3">
+                <div class="my-3">
                     <div class="card">
                         <div class="card-body">
                             <h6 class="d-flex align-items-center mb-3"><i
                                     class="material-icons text-info mr-2">assignment</i>내가 쓴 댓글</h6>
-                            <table>
-                                <thead>
-                                    <th>내용</th>
-                                    <th>작성일</th>
-                                </thead>
-                                <tbody th:each="replyEntities : ${replyEntities}">
-                                    <td th:if=${replyEntities.cano} th:text="${replyEntities.getBcontents()}">내용</td>
-                                    <td th:text="${#temporals.format( replyEntities.createdDate , 'yyyy-MM-dd HH:mm:ss')}">
-                                        작성일
-                                    </td>
-                                </tbody>
-                            </table>
+                            <div style="height:260px; overflow:auto">
+                                <table>
+                                    <thead>
+                                        <th width="65%">내용</th>
+                                        <th>작성일</th>
+                                    </thead>
+                                    <tbody th:each="totreply : ${totreply}">
+                                        <td th:text="${totreply.getRcontents()}"></td>
+                                        <td th:text="${#temporals.format( totreply.getRcreatedDate() , 'yyyy-MM-dd')}">
+                                            작성일
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

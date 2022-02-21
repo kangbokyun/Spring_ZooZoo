@@ -391,7 +391,6 @@ public class BoardController {
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
         Pagination1 pagination = new Pagination1(parses.size(), page);
 
-        // API 1호
         model.addAttribute("parsesPage", parsesPage);
         model.addAttribute("pagination", pagination);
         return "Board/Loss/LossBoardlist";
@@ -404,21 +403,24 @@ public class BoardController {
         String sex = request.getParameter("sex"); // 성별
         String kind = request.getParameter("kind"); // 축종
         String city = request.getParameter("city"); // 시군구
-        String state = "total"; // 상태
+        String state = request.getParameter("state"); // 상태
         HttpSession session = request.getSession();
 
-        if (sex != null || kind != null || city != null) {
+        if (sex != null || kind != null || city != null || state != null) {
             session.setAttribute("sex", sex);
             session.setAttribute("kind", kind);
             session.setAttribute("city", city);
+            session.setAttribute("state", state);
         } else {
             sex = (String) session.getAttribute("sex");
             kind = (String) session.getAttribute("kind");
             city = (String) session.getAttribute("city");
+            state = (String) session.getAttribute("state");
         }
 
 
         ArrayList<LossDTO> parses = lossService.lossnoticelist(sex, kind, city, state); // 필터링 게시물
+        System.out.println(parses.toString());
 
         ArrayList<LossDTO> parsesPage = lossService.parsenum(parses, page); // 페이징
 

@@ -23,6 +23,7 @@ public class BoardDTO {
     private List <String> bfile;
     private String bwriter;
     private String activation; // 분양여부
+    private LocalDateTime date;
 
     //카테고리는??
     CategoryDTO categoryDTO = new CategoryDTO();
