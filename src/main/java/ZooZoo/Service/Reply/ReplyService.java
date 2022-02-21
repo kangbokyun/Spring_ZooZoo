@@ -112,7 +112,7 @@ public class ReplyService {
                         .categoryEntity2(categoryRepository.findById(cano).get())
                         .memberEntity2(memberRepository.findById(mno).get())
                         .rcontents(reReplyContents)
-                        .rindex(rindex)
+                        .rindex(rno)
                         .build();
                 replyRepository.save(reReplyEnt);
                 boardEntityOptional.get().getReplyEntities().add(reReplyEnt);
@@ -126,7 +126,7 @@ public class ReplyService {
                         .categoryEntity2(categoryRepository.findById(cano).get())
                         .memberEntity2(memberRepository.findById(mno).get())
                         .rcontents(reReplyContents)
-                        .rindex(rindex)
+                        .rindex(rno)
                         .build();
                 replyRepository.save(reReplyEnt);
                 boardEntityOptional.get().getReplyEntities().add(reReplyEnt);

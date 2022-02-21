@@ -238,18 +238,20 @@
                             </div>
 
                             <!--대댓글 출력 div-->
-                            <div class="py-2 ml-2 mt-2 mb-1" style="padding-left:20px; border-top:1px solid #cccccc; "  th:if="${replyEntities.rindex != null}">
-                              <div th:each="replyEntities:${replyEntities}">
+                            <div class="py-2 ml-2 mt-2 mb-1" style="padding-left:20px; border-top:1px solid #cccccc; "
+                                th:each="reReplyDTOList:${reReplyDTOList}"
+                                th:if="${reReplyDTOList.rindex} == ${replyEntities.rno}">
+                              <div>
                                 <div class="row d-flex justify-content-between">
                                   <div class="col-md-5" >
                                     <span>
                                       <i class="material-icons" aria-hidden="true" >subdirectory_arrow_right</i>
                                     </span>
-                                    <span th:text="${replyEntities.memberEntity2.mid}"
+                                    <span th:text="${reReplyDTOList.rwriter}"
                                            style="font-weight:bold; font-size:1.000em;">
                                     </span>
                                   </div>
-                                  <div class="col-md-1">
+                                  <!--<div class="col-md-1">
                                     <div class="d-flex justify-content-center" th:if="${memberDTO != null} and ${memberDTO.mno == replyEntities.memberEntity2.mno}">
                                       <div style="margin-right:8px;">
                                         <a th:id="btnrupdate+${replyEntities.getRno()}"
@@ -268,18 +270,17 @@
                                         </a>
                                       </div>
                                     </div>
-                                  </div>
+                                  </div>-->
                                 </div>
                                 <div>
-                                  <span th:text="${#temporals.format( replyEntities.updateDate , 'yyyy-MM-dd HH:mm')}" style="color:gray; font-size:0.750em; padding-left:28px;"></span>
+                                  <span th:text="${reReplyDTOList.bupdateDate}" style="color:gray; font-size:0.750em; padding-left:28px;"></span>
                                 </div>
                                 <div class="my-2" style="padding-left:28px;">
                                    <span class="pr-2" th:text="${replyEntities.memberEntity2.mid}"
                                           style="color:#cccccc;"> <!--대댓글 아이디-->
                                     </span >
-                                  <span th:id="tdbcontents+${replyEntities.rno}" th:text="${replyEntities.rcontents}"></span> <!--대댓글 내용-->
+                                  <span th:id="tdbcontents+${replyEntities.rno}" th:text="${reReplyDTOList.rcontents}"></span> <!--대댓글 내용-->
                                 </div>
-                                <div style="border-bottom:1px solid #cccccc;"></div>
                               </div>
                             </div>
                             <!--대댓글 출력 div 끝-->
