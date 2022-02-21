@@ -38,11 +38,11 @@ public class MemberController {
         getlist.add(lossDTOS.get(0));
         getlist.add(lossDTOS.get(1));
         getlist.add(lossDTOS.get(2));
+        model.addAttribute("lossDTOS",getlist);
 
         if (session.getAttribute("loginDTO") != null) {
             return "LogMain";
         } else {
-            model.addAttribute("lossDTOS",getlist);
             return "Main";
         }
     }
