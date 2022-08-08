@@ -39,6 +39,10 @@ public class ShareService {
     BoardRepository boardRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    HttpServletRequest request;
+    @Autowired
+    MemberRepository memberRepository;
 
     public ArrayList<String> Share(String area) {
         try {
@@ -216,10 +220,6 @@ public class ShareService {
         }
     }
 
-    @Autowired
-    HttpServletRequest request;
-    @Autowired
-    MemberRepository memberRepository;
 
     // 리뷰쓰기
     public boolean ReviewWrite(String btitle, String bcontents, String addrx, String addry, String agreedate, String code) {
