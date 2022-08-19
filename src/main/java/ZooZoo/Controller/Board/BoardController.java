@@ -54,7 +54,7 @@ public class BoardController {
         ArrayList<String> twoStep = new ArrayList<>();
         ArrayList<String> threeStep = new ArrayList<>();
         ArrayList<String> addrpost = new ArrayList<>();
-        ArrayList<String> addrx = new ArrayList<>();
+        ArrayList<String> addrx = new ArrayList<>(); 
         ArrayList<String> addry = new ArrayList<>();
         ArrayList<String> oldaddress = new ArrayList<>();
         ArrayList<String> code = new ArrayList<>();
