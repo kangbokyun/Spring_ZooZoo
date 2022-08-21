@@ -175,7 +175,7 @@ public class ShareService {
                         } else {
                             addrY.add((String) obj.get("REFINE_WGS84_LOGT"));
                         }
-                        if (obj.get("BIZPLC_NM") == null) {
+                        if (obj.get("BIZPLC_NM") == null) { 
                             name.add("정보없음");
                         } else {
                             name.add((String) obj.get("BIZPLC_NM"));
