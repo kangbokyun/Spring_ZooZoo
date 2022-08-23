@@ -29,7 +29,7 @@ public class BoardEntity extends DateEntity {
     @Column (name="bcontents", columnDefinition = "LONGTEXT")
     private String bcontents;
     @Column (name="bview")
-    private int bview;
+    private int bview; 
 
     @Column(name="apikey")
     private String apikey; // api 식별키
