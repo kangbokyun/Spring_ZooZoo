@@ -16,7 +16,7 @@
 - 유기동물 및 반려동물 입양을 원하는 고객
 - 그 외 동물 관련 정보를 원하는 고객(동물병원정보, 입양후기 등)
 
-### 1.3 개발환경
+### 1.3 개발환경 
 - 운영체제 : Windows10
 - Front-end : html, CSS, Bootstrap
 - Back-end : JDK 11, Spring Framework
