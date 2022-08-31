@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class BoardLikeController {
 
-    @Autowired
+    @Autowired 
     HttpServletRequest request;
 
     @Autowired
