@@ -22,7 +22,7 @@ import java.util.List;
 public class BoardEntity extends DateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bno;
+    private int bno; 
 
     @Column (name="btitle")
     private String btitle;
