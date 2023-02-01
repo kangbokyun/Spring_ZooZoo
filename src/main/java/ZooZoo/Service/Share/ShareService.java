@@ -10,7 +10,7 @@ import ZooZoo.Domain.Entity.Category.CategoryEntity;
 import ZooZoo.Domain.Entity.Category.CategoryRepository;
 import ZooZoo.Domain.Entity.Member.MemberEntity;
 import ZooZoo.Domain.Entity.Member.MemberRepository;
-import org.apache.logging.log4j.util.PropertySource; 
+import org.apache.logging.log4j.util.PropertySource;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -39,10 +39,6 @@ public class ShareService {
     BoardRepository boardRepository;
     @Autowired
     CategoryRepository categoryRepository;
-    @Autowired
-    HttpServletRequest request;
-    @Autowired
-    MemberRepository memberRepository;
 
     public ArrayList<String> Share(String area) {
         try {
@@ -54,6 +50,8 @@ public class ShareService {
                 JSONParser jsonParser = new JSONParser(); // JSON을 쓰기 위해 사용
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(result); // 오브젝트에 가져온 데이터 넣기
                 JSONArray jsonArray = (JSONArray) jsonObject.get("AnimalSale"); // 오브젝트에 있는 데이터 배열에 넣기
+
+
                 JSONObject object = (JSONObject) jsonArray.get(1); // head, row가 있는데 이 중 1번째(row)만 오브젝트에 넣기
                 JSONArray arr = (JSONArray) object.get("row"); // row(key)의 값(value) 가져와 배열에 넣기
                 ArrayList<String> address = new ArrayList<>();
@@ -175,7 +173,7 @@ public class ShareService {
                         } else {
                             addrY.add((String) obj.get("REFINE_WGS84_LOGT"));
                         }
-                        if (obj.get("BIZPLC_NM") == null) { 
+                        if (obj.get("BIZPLC_NM") == null) {
                             name.add("정보없음");
                         } else {
                             name.add((String) obj.get("BIZPLC_NM"));
@@ -220,6 +218,10 @@ public class ShareService {
         }
     }
 
+    @Autowired
+    HttpServletRequest request;
+    @Autowired
+    MemberRepository memberRepository;
 
     // 리뷰쓰기
     public boolean ReviewWrite(String btitle, String bcontents, String addrx, String addry, String agreedate, String code) {
@@ -273,18 +275,18 @@ public class ShareService {
         if (addrx == null || addrx.equals("정보없음") || addry == null || addry.equals("정보없음") || agreedate == null|| agreedate.equals("정보없음") ) {
             api = agreedate + code;
         } else {
-            x.add(addrx.split("\\.")[0]);
-            x1.add(addrx.split("\\.")[1]);
-            y.add(addry.split("\\.")[0]);
-            y1.add(addry.split("\\.")[1]);
-
-            if ((Integer.parseInt(x1.get(0)) + Integer.parseInt(y1.get(0))) > 4) {
-                int plusxy = Integer.parseInt((x.get(0) + y.get(0)) + 1);
-                api = agreedate + (plusxy + "");
-            } else {
-                int plusxy = Integer.parseInt(x.get(0) + y.get(0));
-                api = agreedate + (plusxy + "");
-            }
+//            x.add(addrx.split("\\.")[0]);
+//            x1.add(addrx.split("\\.")[1]);
+//            y.add(addry.split("\\.")[0]);
+//            y1.add(addry.split("\\.")[1]);
+//
+//            if ((Integer.parseInt(x1.get(0)) + Integer.parseInt(y1.get(0))) > 4) {
+//                int plusxy = Integer.parseInt((x.get(0) + y.get(0)) + 1);
+//                api = agreedate + (plusxy + "");
+//            } else {
+//                int plusxy = Integer.parseInt(x.get(0) + y.get(0));
+//                api = agreedate + (plusxy + "");
+//            }
         }
         List<BoardEntity> getreview = boardRepository.findAll();
         List<BoardDTO> review = new ArrayList<>();

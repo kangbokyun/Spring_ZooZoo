@@ -54,7 +54,7 @@ public class BoardController {
         ArrayList<String> twoStep = new ArrayList<>();
         ArrayList<String> threeStep = new ArrayList<>();
         ArrayList<String> addrpost = new ArrayList<>();
-        ArrayList<String> addrx = new ArrayList<>(); 
+        ArrayList<String> addrx = new ArrayList<>();
         ArrayList<String> addry = new ArrayList<>();
         ArrayList<String> oldaddress = new ArrayList<>();
         ArrayList<String> code = new ArrayList<>();
@@ -102,7 +102,7 @@ public class BoardController {
                 "김포시", "파주시", "고양시", "양주시", "동두천시", "포천시", "가평군",
                 "남양주시", "양평군", "여주시", "이천시", "광주시", "하남시", "성남시",
                 "용인시", "안성시", "오산시", "평택시", "화성시", "수원시", "안산시",
-                "의왕시", "과천시", "군포시", "시흥시", "광명시", "부천시" 
+                "의왕시", "과천시", "군포시", "시흥시", "광명시", "부천시"
         };
         ArrayList<String> selectArr = new ArrayList<>();
         for (int i = 0; i < select.length; i++) {

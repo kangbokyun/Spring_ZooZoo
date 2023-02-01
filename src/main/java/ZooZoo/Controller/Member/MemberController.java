@@ -52,8 +52,10 @@ public class MemberController {
         ArrayList<LossDTO> getlist = new ArrayList<>();
         Collections.shuffle(lossDTOS);
         getlist.add(lossDTOS.get(0));
-        getlist.add(lossDTOS.get(1));
-        getlist.add(lossDTOS.get(2));
+        if(lossDTOS.size() > 1) {
+            getlist.add(lossDTOS.get(1));
+            getlist.add(lossDTOS.get(2));
+        }
 
         model.addAttribute("sharenews", sharenews);
         model.addAttribute("hosnews", hosnews);

@@ -192,7 +192,7 @@ public class LossService {
                     String PARTCLR_MATR = element.getElementsByTagName("PARTCLR_MATR").item(0).getTextContent();
                     String REFINE_LOTNO_ADDR = element.getElementsByTagName("REFINE_LOTNO_ADDR").item(0).getTextContent();
                     String REFINE_ROADNM_ADDR = element.getElementsByTagName("REFINE_ROADNM_ADDR").item(0).getTextContent();
-                    String city = REFINE_ROADNM_ADDR.split(" ")[1];
+                    String city = REFINE_ROADNM_ADDR.split(" ")[0];
                     String REFINE_ZIP_CD = element.getElementsByTagName("REFINE_ZIP_CD").item(0).getTextContent();
                     String REFINE_WGS84_LOGT = element.getElementsByTagName("REFINE_WGS84_LOGT").item(0).getTextContent();
                     String REFINE_WGS84_LAT = element.getElementsByTagName("REFINE_WGS84_LAT").item(0).getTextContent();
@@ -340,7 +340,7 @@ public class LossService {
                     String PARTCLR_MATR = element.getElementsByTagName("PARTCLR_MATR").item(0).getTextContent();
                     String REFINE_LOTNO_ADDR = element.getElementsByTagName("REFINE_LOTNO_ADDR").item(0).getTextContent();
                     String REFINE_ROADNM_ADDR = element.getElementsByTagName("REFINE_ROADNM_ADDR").item(0).getTextContent();
-                    String city = REFINE_ROADNM_ADDR.split(" ")[1];
+                    String city = REFINE_ROADNM_ADDR.split(" ")[0];
                     String REFINE_ZIP_CD = element.getElementsByTagName("REFINE_ZIP_CD").item(0).getTextContent();
                     String REFINE_WGS84_LOGT = element.getElementsByTagName("REFINE_WGS84_LOGT").item(0).getTextContent();
                     String REFINE_WGS84_LAT = element.getElementsByTagName("REFINE_WGS84_LAT").item(0).getTextContent();
@@ -452,6 +452,7 @@ public class LossService {
         Date time = new Date();
         String current = format.format(time);
         Date today = null;
+        System.out.println(totLosslist.size() + "진짜냐?");
         for (int i = 0; i < totLosslist.size(); i++) {
             try {
                 today = format.parse(current);

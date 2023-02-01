@@ -87,7 +87,6 @@ function hospitalstatus(){
 }
 
 function hospitalpage(pages){
-
     $.ajax({
         url : "/hospitalpaging"+"?page="+pages,
         success: function(data) {

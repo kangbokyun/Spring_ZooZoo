@@ -106,23 +106,6 @@ public class FreeBoardService {
         //카테고리 엔티티에 게시판 엔티티 넣어주기
         categoryEntity.get().getBoardEntities().add(boardEntity);
 
-       /* //첨부파일 폴더 생성하기 위해서
-        String path = "C:\\FreeBoardIMG\\";
-        File Folder = new File(path);
-
-        // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
-        if (!Folder.exists()) {
-            try{
-                Folder.mkdir(); //폴더 생성합니다.
-                System.out.println("폴더가 생성되었습니다.");
-            }
-            catch(Exception e){
-                e.getStackTrace();
-            }
-        }else {
-            System.out.println("이미 폴더가 생성되어 있습니다.");
-        }*/
-
         if (files.size() != 0) {
             for (MultipartFile temp : files) {
                 UUID uuid = UUID.randomUUID();
@@ -131,7 +114,7 @@ public class FreeBoardService {
                     return "1";
                 } else {
                     uuidfile = uuid.toString() + "_" + temp.getOriginalFilename().replaceAll("_", "-");
-                    String filepath = "C:\\Users\\505\\IdeaProjects\\Spring_ZooZoo\\out\\production\\resources\\static\\IMG\\Board\\FreeBoardIMG\\" + uuidfile;
+                    String filepath = "C:\\Users\\119vk\\IdeaProjects\\Spring_ZooZoo\\out\\production\\resources\\static\\IMG\\Board\\FreeBoardIMG\\" + uuidfile;
                     try {
                         temp.transferTo(new File(filepath));
                     } catch (Exception e) {
@@ -212,7 +195,7 @@ public class FreeBoardService {
                 String uuidfile = null;
                 UUID uuid = UUID.randomUUID();
                 uuidfile = uuid.toString() + "_" + temp.getOriginalFilename().replaceAll("_", "-");
-                String filepath = "C:\\Users\\505\\IdeaProjects\\Spring_ZooZoo\\out\\production\\resources\\static\\IMG\\Board\\FreeBoardIMG\\" + uuidfile;
+                String filepath = "C:\\Users\\119vk\\IdeaProjects\\Spring_ZooZoo\\out\\production\\resources\\static\\IMG\\Board\\FreeBoardIMG\\" + uuidfile;
                 try { temp.transferTo(new File(filepath));
                 } catch (Exception e) { System.out.println("파일 저장 실패함" + e); }
                      BoardImgEntity boardImgEntity = BoardImgEntity.builder()
@@ -239,7 +222,7 @@ public class FreeBoardService {
 
     //첨부파일 다운로드
     public void freeBoardFileDown(String bimg, HttpServletResponse response) {
-        String path = "C:\\Users\\505\\IdeaProjects\\Spring_ZooZoo\\out\\production\\resources\\static\\IMG\\Board\\FreeBoardIMG\\" + bimg;
+        String path = "C:\\Users\\119vk\\IdeaProjects\\Spring_ZooZoo\\out\\production\\resources\\static\\IMG\\Board\\FreeBoardIMG\\" + bimg;
 
         File file = new File(path);
         //파일 이미지가 있으면
@@ -260,51 +243,4 @@ public class FreeBoardService {
             } catch (Exception e) {  System.out.println("첨부파일 다운로드 오류 발생");  }
         }else{   System.out.println("첨부파일이 없어용"); }
     }
-
-
-
-
-//    @Transactional
-//    public boolean updateFreeBoard(BoardDTO build) {
-//        try{
-//            Optional<BoardEntity> boardEntity = boardRepository.findById(build.getBno());
-//            Optional<CategoryEntity> cEntityOpt = categoryRepository.findById(4);
-//            boardEntity.get().getBoardImgEntities();
-//            boardEntity.get().setBtitle(build.getBtitle());
-//            boardEntity.get().setBcontents(build.getBcontents());
-//            for(int i=0; i<build.getBfile().size(); i++){
-//                System.out.println("%%게시판엔티티 :"+boardEntity.get().getBoardImgEntities().get(i));
-//                System.out.println("%%build : "+build.getBfile().get(i));
-//
-//                //엔티티도 null이 아니고 bfile(새로운첨부파일)이 null이 아닐때 첨부파일 바꿔주기
-//                if(build.getBfile().get(i)!=null || boardEntity.get().getBoardImgEntities().get(i) != null || !build.getBfile().get(i).equals("") || !boardEntity.get().getBoardImgEntities().equals("") )
-//                {
-//                    boardEntity.get().getBoardImgEntities().get(i).setBimg(build.getBfile().get(i));
-//                    System.out.println(boardEntity.get().getBoardImgEntities().get(i));
-//
-//                //엔티티는 null(기존첨부파일)이고 build.getBfile(새로운 첨부파일)이 있으면 새로운 첨부파일 저장
-//                }else if(boardEntity.get().getBoardImgEntities().get(i) == null && build.getBfile().get(i) !=null){
-//                    BoardImgDTO boardImgDTO = BoardImgDTO.builder()
-//                            .bimg(build.getBfile().get(i))
-//                            .bno(build.getBno())
-//                            .build();
-//                    BoardImgEntity boardImgEntity = boardImgDTO.toBoardImgEntity();
-//                    boardImgEntity.setBoardEntity(boardEntity.get());
-//                    boardImgEntity.setCategoryEntity2(cEntityOpt.get());
-//                    boardEntity.get().setBoardImgEntities(boardImgEntity.getBoardEntity().getBoardImgEntities());
-//                    System.out.println("%%%엔티티가 null이고 새로운 첨부파일이 있을 떄 boardEntity : "+boardEntity.get());
-//                    bimgRepository.save(boardImgEntity);
-//                //엔티티가 null이 아니고 첨부파일이 없으면 남는 기존 첨부파일을 삭제하기
-//                }else{
-//                    bimgRepository.delete(boardEntity.get().getBoardImgEntities().get(i));
-//                }
-//
-//            }
-//            return  true;
-//        }catch(Exception e){
-//            System.out.println(e);
-//            return false;
-//        }
-//    }
-
 }

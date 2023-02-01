@@ -22,14 +22,14 @@ import java.util.List;
 public class BoardEntity extends DateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bno; 
+    private int bno;
 
     @Column (name="btitle")
     private String btitle;
     @Column (name="bcontents", columnDefinition = "LONGTEXT")
     private String bcontents;
     @Column (name="bview")
-    private int bview; 
+    private int bview;
 
     @Column(name="apikey")
     private String apikey; // api 식별키
