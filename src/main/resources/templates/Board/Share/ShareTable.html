@@ -32,14 +32,16 @@
             <option th:if = "${session.option  !=  select} "  th:text = "${select}" th:value = "${select}" th:name = "sel" th:id = "selectA"></option>
         </div>
     </select>
-    <table class = "table mt-2" style="background-color: white;">
-        <tr class = "row">
-            <th class = "col-md-1 text-center">번호</th><th class = "col-md-5 text-center">가게명</th><th class = "col-md-5 text-center">주소</th>
-        </tr>
-        <tr class = "row" th:each = "share : ${share}" id = "tt">
-            <td class = "col-md-1 text-center" th:text = "${share.shareno}"></td><td class = "col-md-5 text-center"><a th:text = "${share.sharename}" th:href = "@{'/ShareBoardView/' + ${share.shareno} + ${share}}"></a></td><td class = "col-md-5 text-center" th:text = "${share.shareaddress}"></td>
-        </tr>
-    </table>
+    <div style = "height: 65vh; overflow-y: auto; width: 100%; margin-bottom: 2vh; padding-left: 0.6vw; padding-right: 0.6vw;">
+        <table class = "table mt-2" style="background-color: white; width: 100%; max-height: 65vh;">
+            <tr class = "row">
+                <th class = "col-md-1 text-center">번호</th><th class = "col-md-5 text-center">가게명</th><th class = "col-md-5 text-center">주소</th>
+            </tr>
+            <tr class = "row" th:each = "share : ${share}" id = "tt">
+                <td class = "col-md-1 text-center" th:text = "${share.shareno}"></td><td class = "col-md-5 text-center"><a th:text = "${share.sharename}" th:href = "@{'/ShareBoardView/' + ${share.shareno} + ${share}}"></a></td><td class = "col-md-5 text-center" th:text = "${share.shareaddress}"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <br>
 <!--paging button-->
