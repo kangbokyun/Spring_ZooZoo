@@ -1,7 +1,7 @@
 # ZooZoo Club  
 경기도 유기동물, 분양동물 커뮤니티 사이트
 
-### 시연영상 ([바로가기](https://https://www.youtube.com/watch?v=doywPxdSFEg)) 
+### 시연영상 ([바로가기](https://www.youtube.com/watch?v=doywPxdSFEg)) 
 
 ## 1. 개요 
 ### 1.1 프로젝트 목적
